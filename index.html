@@ -260,6 +260,24 @@
               <div class="text-xs text-gray-600 tracking-widest mt-1">DNA ≠ REG ⇒ TERMINATE</div>
             </div>
           </div>
+          <!-- Row 02 -->
+          <div class="grid grid-cols-5 gap-px bg-white border-t border-white">
+            <div class="bg-black px-4 py-4 text-xs tracking-widest text-white font-bold">SENTINEL_MOD_04</div>
+            <div class="bg-black px-4 py-4">
+              <span class="text-xs tracking-widest text-gray-300">&ldquo;The Sentinel&rdquo;</span>
+            </div>
+            <div class="bg-black px-4 py-4">
+              <span class="text-xs tracking-widest text-yellow-400 border border-yellow-400 px-2 py-0.5">ENCRYPTED</span>
+            </div>
+            <div class="bg-black px-4 py-4 text-xs text-gray-400 tracking-widest leading-relaxed">
+              <div>VIGILANT <span class="text-gray-600">[&Delta;&sigma; +0.88]</span></div>
+              <div>COLD-STATE <span class="text-gray-600">[&Delta;&mu; &minus;0.05]</span></div>
+            </div>
+            <div class="bg-black px-4 py-4">
+              <span class="text-xs tracking-widest text-red-400">PROTOCOL_RED</span>
+              <div class="text-xs text-gray-600 tracking-widest mt-1">UNAUTH &rarr; AUTO-PURGE</div>
+            </div>
+          </div>
         </div>
 
         <!-- Scan button -->
@@ -269,6 +287,36 @@
             class="text-xs tracking-widest border border-white px-4 py-2 hover:bg-white hover:text-black transition-colors font-bold"
           >[ SCAN IDENTITY DNA ]</button>
           <span id="scan-status" class="text-xs text-gray-600 tracking-widest"></span>
+        </div>
+      </div>
+
+      <!-- GOVERNANCE REPORT -->
+      <div class="mt-px border-t border-white pt-8">
+        <div class="flex items-center justify-between mb-6">
+          <div class="text-xs tracking-widest text-gray-500">// GOVERNANCE_REPORT &mdash; STATE_OF_THE_ENGINE</div>
+          <span class="text-xs text-green-400 tracking-widest border border-green-400 px-3 py-1">EMISSION COMPLETE</span>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white">
+          <div class="bg-black px-6 py-5">
+            <div class="text-xs text-gray-500 tracking-widest mb-2">VAULT VOLUME</div>
+            <div class="text-lg font-bold tracking-widest">4.87 TB</div>
+            <div class="text-xs text-gray-600 tracking-widest mt-1">TOTAL ASSET STORE</div>
+          </div>
+          <div class="bg-black px-6 py-5">
+            <div class="text-xs text-gray-500 tracking-widest mb-2">IDENTITY STABILITY</div>
+            <div class="text-lg font-bold tracking-widest text-green-400">99.98%</div>
+            <div class="text-xs text-gray-600 tracking-widest mt-1">REGISTRY INTEGRITY</div>
+          </div>
+          <div class="bg-black px-6 py-5">
+            <div class="text-xs text-gray-500 tracking-widest mb-2">LEDGER HEALTH</div>
+            <div class="text-lg font-bold tracking-widest text-green-400">OPTIMAL</div>
+            <div class="text-xs text-gray-600 tracking-widest mt-1">ZERO DRIFT DETECTED</div>
+          </div>
+          <div class="bg-black px-6 py-5">
+            <div class="text-xs text-gray-500 tracking-widest mb-2">COMPLIANCE</div>
+            <div class="text-sm font-bold tracking-widest leading-snug">SigmaShift<br/>Sovereign v1.0</div>
+            <div class="text-xs text-gray-600 tracking-widest mt-1">STANDARD ACTIVE</div>
+          </div>
         </div>
       </div>
 
@@ -460,9 +508,13 @@
       while (terminal.children.length > 40) terminal.removeChild(terminal.lastChild);
 
       setTimeout(() => {
-        // Log DNA match
+        const identities = [
+          { id: 'ELDER_V2',   label: 'ELDER_V2' },
+          { id: 'SENTINEL',   label: 'THE_SENTINEL' }
+        ];
+        const picked = identities[Math.floor(Math.random() * identities.length)];
         const logs = [
-          { text: `COMPONENT:IDENTITY_REGISTRY HASH:${randomHex(8)} STATUS:DNA_MATCH_CONFIRMED (ELDER_V2)`, color: 'text-green-400' },
+          { text: `COMPONENT:IDENTITY_REGISTRY HASH:${randomHex(8)} STATUS:DNA_MATCH_CONFIRMED (${picked.id})`, color: 'text-green-400' },
           { text: `COMPONENT:IDENTITY_REGISTRY HASH:${randomHex(8)} STATUS:MORPH_VECTORS_CALIBRATED`, color: 'text-green-400' }
         ];
         for (let i = logs.length - 1; i >= 0; i--) {
@@ -475,7 +527,7 @@
 
         btn.textContent = '[ SCAN IDENTITY DNA ]';
         btn.disabled = false;
-        status.textContent = 'DNA_MATCH_CONFIRMED — ELDER_V2 ✔';
+        status.textContent = `DNA_MATCH_CONFIRMED — ${picked.label} ✔`;
         status.className = 'text-xs text-green-400 tracking-widest';
       }, 2000);
     }
@@ -487,7 +539,8 @@
         { text: `COMPONENT:SIGMA_ENGINE HASH:B44A92F1 STATUS:CORE_NUCLEUS_ONLINE` },
         { text: `COMPONENT:SIGNAL_ROUTER HASH:F23E11D9 STATUS:FAILOVER_PROTOCOL_ENGAGED` },
         { text: `COMPONENT:SUPERNOVA_SIM HASH:9D11B5A2 STATUS:PARTICLE_SOLVER_ACTIVE` },
-        { text: `COMPONENT:IDENTITY_REGISTRY HASH:C7F033E6 STATUS:REGISTRY_ONLINE (THE_BANK)` }
+        { text: `COMPONENT:IDENTITY_REGISTRY HASH:C7F033E6 STATUS:REGISTRY_ONLINE (THE_BANK)` },
+        { text: `COMPONENT:REPORT_GEN HASH:A19C4D77 STATUS:SOVEREIGN_EMISSION_COMPLETE` }
       ];
       // Prepend in reverse so they appear in order (first log on top)
       for (let i = logs.length - 1; i >= 0; i--) {
