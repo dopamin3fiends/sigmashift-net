@@ -147,37 +147,61 @@
         <div class="bg-black p-6 flex flex-col gap-4">
           <div class="flex justify-between items-start">
             <span class="text-xs text-gray-500 tracking-widest">ASSET 01</span>
-            <span class="text-xs text-gray-500 tracking-widest border border-gray-600 px-2 py-0.5">[ENCRYPTED]</span>
+            <span class="text-xs text-green-400 tracking-widest border border-green-400 px-2 py-0.5">[ STABLE // RENDER_COMPLETE ]</span>
           </div>
-          <h3 class="text-sm font-bold tracking-widest">PROJECT_NEBULA_VFX</h3>
+          <h3 class="text-sm font-bold tracking-widest">PROJECT_NEBULA</h3>
           <p class="text-xs text-gray-400 leading-relaxed tracking-wide">
-            Visual effects archive. Encrypted at rest. Access requires secondary vault key.
+            High-fidelity volumetric nebula simulation. Utilizes custom Laplacian noise distributions to maintain signal integrity at 1.87 density.
           </p>
-          <div class="mt-auto pt-4 border-t border-zinc-800 text-xs text-gray-600 tracking-widest">VAULT_ENCRYPTION // LOCKED</div>
+          <div class="text-xs text-gray-600 tracking-widest leading-relaxed">
+            <div>RES &nbsp;&nbsp;: 8K</div>
+            <div>CODEC: ProRes 4444 XQ</div>
+            <div>HASH : SHA-256 Verified</div>
+          </div>
+          <div class="mt-auto pt-4 border-t border-zinc-800 flex items-center justify-between">
+            <span class="text-xs text-gray-600 tracking-widest">VAULT_ENCRYPTION // STABLE</span>
+            <button class="text-xs tracking-widest border border-white px-3 py-1 hover:bg-white hover:text-black transition-colors">[ DOWNLOAD ASSET ]</button>
+          </div>
         </div>
 
         <div class="bg-black p-6 flex flex-col gap-4">
           <div class="flex justify-between items-start">
             <span class="text-xs text-gray-500 tracking-widest">ASSET 02</span>
-            <span class="text-xs text-green-400 tracking-widest border border-green-400 px-2 py-0.5">[LIVE]</span>
+            <span class="text-xs text-green-400 tracking-widest border border-green-400 px-2 py-0.5">[ ACTIVE // SIGMA_INDEX: 1.89 ]</span>
           </div>
-          <h3 class="text-sm font-bold tracking-widest">SIGMA_ENGINE_V1.87</h3>
+          <h3 class="text-sm font-bold tracking-widest">SIGMA_ENGINE_CORE</h3>
           <p class="text-xs text-gray-400 leading-relaxed tracking-wide">
-            Core rendering engine. Version 1.87 final build. All modules compiled and active.
+            Centralized computational nucleus for the SigmaShift framework. Manages real-time Laplacian auditing and fault-tolerant signal routing across distributed nodes.
           </p>
-          <div class="mt-auto pt-4 border-t border-zinc-800 text-xs text-gray-600 tracking-widest">HERO_ENGINE // RUNNING</div>
+          <div class="text-xs text-gray-600 tracking-widest leading-relaxed">
+            <div>LOGIC     : 2nd-Order Differential</div>
+            <div>THROUGHPUT: 1.87 GB/s Burst</div>
+            <div>UPTIME    : 99.998% Verified</div>
+          </div>
+          <div class="mt-auto pt-4 border-t border-zinc-800 flex items-center justify-between">
+            <span class="text-xs text-gray-600 tracking-widest">HERO_ENGINE // ACTIVE</span>
+            <button class="text-xs tracking-widest border border-white px-3 py-1 hover:bg-white hover:text-black transition-colors">[ VIEW SCHEMATICS ]</button>
+          </div>
         </div>
 
         <div class="bg-black p-6 flex flex-col gap-4">
           <div class="flex justify-between items-start">
             <span class="text-xs text-gray-500 tracking-widest">ASSET 03</span>
-            <span class="text-xs text-yellow-400 tracking-widest border border-yellow-400 px-2 py-0.5">[SYNCING]</span>
+            <span class="text-xs text-green-400 tracking-widest border border-green-400 px-2 py-0.5">[ NOMINAL // FAILOVER: READY ]</span>
           </div>
-          <h3 class="text-sm font-bold tracking-widest">LAPLACIAN_RENDER_PIPELINE</h3>
+          <h3 class="text-sm font-bold tracking-widest">SIGNAL_ROUTER</h3>
           <p class="text-xs text-gray-400 leading-relaxed tracking-wide">
-            Laplacian smoothing pipeline for render-time geometry. Sync in progress — ETA unknown.
+            Distributed message routing across protocol nodes. Features automated Triad-Validation failover; if signal integrity drops, traffic is instantaneously re-routed to a high-integrity shadow node to prevent system failure.
           </p>
-          <div class="mt-auto pt-4 border-t border-zinc-800 text-xs text-gray-600 tracking-widest">ASSET_PIPELINE // SYNCING</div>
+          <div class="text-xs text-gray-600 tracking-widest leading-relaxed">
+            <div>REDUNDANCY    : 3-Node Cluster</div>
+            <div>LATENCY       : &lt; 1.87ms</div>
+            <div>FAILOVER STATE: Active-Active</div>
+          </div>
+          <div class="mt-auto pt-4 border-t border-zinc-800 flex items-center justify-between">
+            <span class="text-xs text-gray-600 tracking-widest">SIGNAL_ROUTER // NOMINAL</span>
+            <button class="text-xs tracking-widest border border-white px-3 py-1 hover:bg-white hover:text-black transition-colors">[ CONFIGURE NODES ]</button>
+          </div>
         </div>
 
       </div>
@@ -270,11 +294,29 @@
         closeGateway();
         document.getElementById('sovereign-vault').classList.remove('hidden');
         prependAuthLine('COMPONENT:AUTH_GATEWAY', 'ACCESS_GRANTED (OP_LEVEL:1.87)', 'text-green-400');
+        prependManifestLog();
         setTimeout(scrollToVault, 150);
       } else {
         document.getElementById('gateway-error').classList.remove('hidden');
         prependAuthLine('COMPONENT:AUTH_GATEWAY', 'ACCESS_DENIED', 'text-red-400');
       }
+    }
+
+    function prependManifestLog() {
+      const terminal = document.getElementById('terminal-output');
+      const logs = [
+        { text: `COMPONENT:VAULT_DECRYPTION HASH:7E22A1BC STATUS:NEBULA_MANIFEST_LOADED` },
+        { text: `COMPONENT:SIGMA_ENGINE HASH:B44A92F1 STATUS:CORE_NUCLEUS_ONLINE` },
+        { text: `COMPONENT:SIGNAL_ROUTER HASH:F23E11D9 STATUS:FAILOVER_PROTOCOL_ENGAGED` }
+      ];
+      // Prepend in reverse so they appear in order (first log on top)
+      for (let i = logs.length - 1; i >= 0; i--) {
+        const line = document.createElement('div');
+        line.className = 'text-green-400';
+        line.textContent = `[${getTimestamp()}] ${logs[i].text}`;
+        terminal.insertBefore(line, terminal.firstChild);
+      }
+      while (terminal.children.length > 40) terminal.removeChild(terminal.lastChild);
     }
 
     function prependAuthLine(component, status, colorClass) {
