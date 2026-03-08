@@ -318,6 +318,15 @@
             <div class="text-xs text-gray-600 tracking-widest mt-1">STANDARD ACTIVE</div>
           </div>
         </div>
+        <!-- Purge control -->
+        <div class="mt-6 flex items-center gap-6">
+          <button
+            id="purge-btn"
+            onclick="initiatePurge()"
+            class="text-xs tracking-widest border border-red-500 text-red-500 px-4 py-2 hover:bg-red-500 hover:text-black transition-colors font-bold"
+          >[ INITIALIZE PURGE ]</button>
+          <span id="purge-status" class="text-xs text-gray-600 tracking-widest"></span>
+        </div>
       </div>
 
     </div>
@@ -491,6 +500,61 @@
       }
     }
 
+    function initiatePurge() {
+      const btn = document.getElementById('purge-btn');
+      const purgeStatus = document.getElementById('purge-status');
+      if (btn.disabled) return;
+      btn.disabled = true;
+      btn.textContent = '[ PURGING... ]';
+
+      const terminal = document.getElementById('terminal-output');
+
+      function termLine(text, cls) {
+        const line = document.createElement('div');
+        line.className = cls;
+        line.textContent = `[${getTimestamp()}] ${text}`;
+        terminal.insertBefore(line, terminal.firstChild);
+        while (terminal.children.length > 40) terminal.removeChild(terminal.lastChild);
+      }
+
+      termLine('COMPONENT:SECURITY_DAEMON STATUS:CRITICAL_THREAT_DETECTED', 'text-red-400');
+
+      let count = 3;
+      purgeStatus.textContent = `PURGING VAULT IN ${count}...`;
+      purgeStatus.className = 'text-xs text-red-400 tracking-widest';
+
+      const tick = setInterval(() => {
+        count--;
+        if (count > 0) {
+          purgeStatus.textContent = `PURGING VAULT IN ${count}...`;
+        } else {
+          clearInterval(tick);
+          termLine('COMPONENT:SECURITY_DAEMON STATUS:PURGING VAULT IN 3... 2... 1... EXECUTING', 'text-red-400');
+
+          // Glitch effect
+          const vault = document.getElementById('sovereign-vault');
+          vault.style.transition = 'none';
+          let glitchCount = 0;
+          const glitch = setInterval(() => {
+            vault.style.opacity = glitchCount % 2 === 0 ? '0.1' : '0.8';
+            vault.style.transform = glitchCount % 2 === 0 ? 'translateX(4px)' : 'translateX(-4px)';
+            glitchCount++;
+            if (glitchCount >= 8) {
+              clearInterval(glitch);
+              vault.style.opacity = '';
+              vault.style.transform = '';
+              vault.classList.add('hidden');
+              isAuthenticated = false;
+              termLine('COMPONENT:PURGE_DAEMON STATUS:VAULT_PURGED // ACCESS_REVOKED', 'text-red-400');
+              purgeStatus.textContent = 'VAULT PURGED — ACCESS REVOKED';
+              btn.textContent = '[ INITIALIZE PURGE ]';
+              btn.disabled = false;
+            }
+          }, 80);
+        }
+      }, 1000);
+    }
+
     function scanIdentityDNA() {
       const btn = document.querySelector('button[onclick="scanIdentityDNA()"]');
       const status = document.getElementById('scan-status');
@@ -540,7 +604,8 @@
         { text: `COMPONENT:SIGNAL_ROUTER HASH:F23E11D9 STATUS:FAILOVER_PROTOCOL_ENGAGED` },
         { text: `COMPONENT:SUPERNOVA_SIM HASH:9D11B5A2 STATUS:PARTICLE_SOLVER_ACTIVE` },
         { text: `COMPONENT:IDENTITY_REGISTRY HASH:C7F033E6 STATUS:REGISTRY_ONLINE (THE_BANK)` },
-        { text: `COMPONENT:REPORT_GEN HASH:A19C4D77 STATUS:SOVEREIGN_EMISSION_COMPLETE` }
+        { text: `COMPONENT:REPORT_GEN HASH:A19C4D77 STATUS:SOVEREIGN_EMISSION_COMPLETE` },
+        { text: `COMPONENT:PURGE_DAEMON HASH:E80F2C44 STATUS:FAILSAFE_ENGAGED` }
       ];
       // Prepend in reverse so they appear in order (first log on top)
       for (let i = logs.length - 1; i >= 0; i--) {
