@@ -130,10 +130,10 @@
   <div class="w-full bg-white text-black text-xs tracking-widest font-bold py-2 overflow-hidden">
     <div class="marquee-track">
       <span class="whitespace-nowrap pr-8">
-        ◈ SIGMA THRESHOLD EXCEEDED &nbsp;&nbsp;◈ AUDIT INTEGRITY VERIFIED &nbsp;&nbsp;◈ LAPLACIAN SCORE 1.87 &nbsp;&nbsp;◈ PROTOCOL ACTIVE &nbsp;&nbsp;◈ ALL NODES NOMINAL &nbsp;&nbsp;◈ SHA-256 VERIFIED &nbsp;&nbsp;
+        ◈ PROTOCOL STATUS: NOMINAL &nbsp;&nbsp;//&nbsp;&nbsp; HASH VERIFIED &nbsp;&nbsp;◈ SIGMA THRESHOLD EXCEEDED &nbsp;&nbsp;◈ AUDIT INTEGRITY VERIFIED &nbsp;&nbsp;◈ LAPLACIAN SCORE 1.87 &nbsp;&nbsp;◈ PROTOCOL ACTIVE &nbsp;&nbsp;◈ ALL NODES NOMINAL &nbsp;&nbsp;◈ SHA-256 VERIFIED &nbsp;&nbsp;
       </span>
       <span class="whitespace-nowrap pr-8">
-        ◈ SIGMA THRESHOLD EXCEEDED &nbsp;&nbsp;◈ AUDIT INTEGRITY VERIFIED &nbsp;&nbsp;◈ LAPLACIAN SCORE 1.87 &nbsp;&nbsp;◈ PROTOCOL ACTIVE &nbsp;&nbsp;◈ ALL NODES NOMINAL &nbsp;&nbsp;◈ SHA-256 VERIFIED &nbsp;&nbsp;
+        ◈ PROTOCOL STATUS: NOMINAL &nbsp;&nbsp;//&nbsp;&nbsp; HASH VERIFIED &nbsp;&nbsp;◈ SIGMA THRESHOLD EXCEEDED &nbsp;&nbsp;◈ AUDIT INTEGRITY VERIFIED &nbsp;&nbsp;◈ LAPLACIAN SCORE 1.87 &nbsp;&nbsp;◈ PROTOCOL ACTIVE &nbsp;&nbsp;◈ ALL NODES NOMINAL &nbsp;&nbsp;◈ SHA-256 VERIFIED &nbsp;&nbsp;
       </span>
     </div>
   </div>
@@ -178,27 +178,27 @@
         <!-- Card 04 -->
         <div class="border-r border-b border-white/20 p-6">
           <p class="text-xs text-white/30 mb-3">04</p>
-          <p class="text-sm font-bold tracking-widest uppercase mb-2">OPERATOR CLEARANCE</p>
+          <p class="text-sm font-bold tracking-widest uppercase mb-2">SOVEREIGN VAULT</p>
           <p class="text-xs text-white/60 leading-relaxed">
-            Tiered access control. Operators must maintain index compliance to retain system visibility.
+            Encrypted sovereign key store. Access requires multi-factor operator clearance and live index compliance.
           </p>
         </div>
 
         <!-- Card 05 -->
         <div class="border-r border-b border-white/20 p-6">
           <p class="text-xs text-white/30 mb-3">05</p>
-          <p class="text-sm font-bold tracking-widest uppercase mb-2">NODE TELEMETRY</p>
+          <p class="text-sm font-bold tracking-widest uppercase mb-2">POLICY ENGINE</p>
           <p class="text-xs text-white/60 leading-relaxed">
-            Sub-millisecond telemetry from distributed execution nodes. Aggregated, normalized, archived.
+            Rule-based policy evaluation layer. Enforces protocol constraints across all execution surfaces in real time.
           </p>
         </div>
 
         <!-- Card 06 -->
         <div class="border-r border-b border-white/20 p-6">
           <p class="text-xs text-white/30 mb-3">06</p>
-          <p class="text-sm font-bold tracking-widest uppercase mb-2">PROTOCOL LOCKDOWN</p>
+          <p class="text-sm font-bold tracking-widest uppercase mb-2">API ACCESS</p>
           <p class="text-xs text-white/60 leading-relaxed">
-            Automated lockdown sequence triggers if sigma drift exceeds ±0.03 from nominal.
+            Authenticated endpoint surface. Rate-limited, hash-signed, and audited against the active sigma threshold.
           </p>
         </div>
 
@@ -288,19 +288,16 @@
         line.className = 'whitespace-pre font-mono';
         line.innerHTML =
           '<span class="text-white/40">[' + now + ']</span> ' +
-          '<span class="text-white/60">SHA256:' + sha + '</span>  ' +
-          'LAPLACIAN:<span class="' + sCls + '">' + lap + '</span>  ' +
+          '<span class="text-white/60">HASH:' + sha + '</span>  ' +
+          'SCORE:<span class="' + sCls + '">' + lap + '</span>  ' +
           'STATUS:<span class="' + stCls + '">' + status + '</span>';
 
-        terminal.appendChild(line);
+        terminal.insertBefore(line, terminal.firstChild);
 
         // Cap at MAX_LINES
         while (terminal.children.length > MAX_LINES) {
-          terminal.removeChild(terminal.firstChild);
+          terminal.removeChild(terminal.lastChild);
         }
-
-        // Scroll to bottom
-        terminal.scrollTop = terminal.scrollHeight;
       }
 
       // Seed with a few initial lines
