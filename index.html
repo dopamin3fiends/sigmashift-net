@@ -225,6 +225,53 @@
         </div>
 
       </div>
+
+      <!-- IDENTITY REGISTRY -->
+      <div class="mt-px border-t border-white pt-8">
+        <div class="flex items-center justify-between mb-6">
+          <div class="text-xs tracking-widest text-gray-500">// IDENTITY_REGISTRY — THE_BANK</div>
+          <span class="text-xs text-green-400 tracking-widest border border-green-400 px-3 py-1">REGISTRY ONLINE</span>
+        </div>
+
+        <div class="border border-white">
+          <!-- Table header -->
+          <div class="grid grid-cols-5 gap-px bg-white text-black">
+            <div class="bg-black px-4 py-2 text-xs tracking-widest text-gray-500">CHAR_ID</div>
+            <div class="bg-black px-4 py-2 text-xs tracking-widest text-gray-500">ALIAS</div>
+            <div class="bg-black px-4 py-2 text-xs tracking-widest text-gray-500">DNA_STATUS</div>
+            <div class="bg-black px-4 py-2 text-xs tracking-widest text-gray-500">MORPH_VECTORS</div>
+            <div class="bg-black px-4 py-2 text-xs tracking-widest text-gray-500">SECURITY</div>
+          </div>
+          <!-- Row 01 -->
+          <div class="grid grid-cols-5 gap-px bg-white border-t border-white">
+            <div class="bg-black px-4 py-4 text-xs tracking-widest text-white font-bold">MASTER_CHAR_01_V2</div>
+            <div class="bg-black px-4 py-4">
+              <span class="text-xs tracking-widest text-gray-300">&ldquo;The Elder v2&rdquo;</span>
+            </div>
+            <div class="bg-black px-4 py-4">
+              <span class="text-xs tracking-widest text-green-400 border border-green-400 px-2 py-0.5">LOCKED</span>
+            </div>
+            <div class="bg-black px-4 py-4 text-xs text-gray-400 tracking-widest leading-relaxed">
+              <div>FATIGUED <span class="text-gray-600">[&Delta;&sigma; &minus;0.12]</span></div>
+              <div>HIGH-TENSION <span class="text-gray-600">[&Delta;&mu; +0.34]</span></div>
+            </div>
+            <div class="bg-black px-4 py-4">
+              <span class="text-xs tracking-widest text-red-400">BREACH &rarr; HARD-ABORT</span>
+              <div class="text-xs text-gray-600 tracking-widest mt-1">DNA ≠ REG ⇒ TERMINATE</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scan button -->
+        <div class="mt-6 flex items-center gap-6">
+          <button
+            onclick="scanIdentityDNA()"
+            class="text-xs tracking-widest border border-white px-4 py-2 hover:bg-white hover:text-black transition-colors font-bold"
+          >[ SCAN IDENTITY DNA ]</button>
+          <span id="scan-status" class="text-xs text-gray-600 tracking-widest"></span>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -396,13 +443,51 @@
       }
     }
 
+    function scanIdentityDNA() {
+      const btn = document.querySelector('button[onclick="scanIdentityDNA()"]');
+      const status = document.getElementById('scan-status');
+      if (btn.disabled) return;
+      btn.disabled = true;
+      btn.textContent = '[ SCANNING... ]';
+      status.textContent = '';
+
+      // Pulse a scanning line immediately
+      const terminal = document.getElementById('terminal-output');
+      const scanLine = document.createElement('div');
+      scanLine.className = 'text-yellow-400';
+      scanLine.textContent = `[${getTimestamp()}] COMPONENT:IDENTITY_REGISTRY HASH:${randomHex(8)} STATUS:DNA_SCAN_INITIATED`;
+      terminal.insertBefore(scanLine, terminal.firstChild);
+      while (terminal.children.length > 40) terminal.removeChild(terminal.lastChild);
+
+      setTimeout(() => {
+        // Log DNA match
+        const logs = [
+          { text: `COMPONENT:IDENTITY_REGISTRY HASH:${randomHex(8)} STATUS:DNA_MATCH_CONFIRMED (ELDER_V2)`, color: 'text-green-400' },
+          { text: `COMPONENT:IDENTITY_REGISTRY HASH:${randomHex(8)} STATUS:MORPH_VECTORS_CALIBRATED`, color: 'text-green-400' }
+        ];
+        for (let i = logs.length - 1; i >= 0; i--) {
+          const line = document.createElement('div');
+          line.className = logs[i].color;
+          line.textContent = `[${getTimestamp()}] ${logs[i].text}`;
+          terminal.insertBefore(line, terminal.firstChild);
+        }
+        while (terminal.children.length > 40) terminal.removeChild(terminal.lastChild);
+
+        btn.textContent = '[ SCAN IDENTITY DNA ]';
+        btn.disabled = false;
+        status.textContent = 'DNA_MATCH_CONFIRMED — ELDER_V2 ✔';
+        status.className = 'text-xs text-green-400 tracking-widest';
+      }, 2000);
+    }
+
     function prependManifestLog() {
       const terminal = document.getElementById('terminal-output');
       const logs = [
         { text: `COMPONENT:VAULT_DECRYPTION HASH:7E22A1BC STATUS:NEBULA_MANIFEST_LOADED` },
         { text: `COMPONENT:SIGMA_ENGINE HASH:B44A92F1 STATUS:CORE_NUCLEUS_ONLINE` },
         { text: `COMPONENT:SIGNAL_ROUTER HASH:F23E11D9 STATUS:FAILOVER_PROTOCOL_ENGAGED` },
-        { text: `COMPONENT:SUPERNOVA_SIM HASH:9D11B5A2 STATUS:PARTICLE_SOLVER_ACTIVE` }
+        { text: `COMPONENT:SUPERNOVA_SIM HASH:9D11B5A2 STATUS:PARTICLE_SOLVER_ACTIVE` },
+        { text: `COMPONENT:IDENTITY_REGISTRY HASH:C7F033E6 STATUS:REGISTRY_ONLINE (THE_BANK)` }
       ];
       // Prepend in reverse so they appear in order (first log on top)
       for (let i = logs.length - 1; i >= 0; i--) {
