@@ -204,6 +204,26 @@
           </div>
         </div>
 
+        <div class="bg-black p-6 flex flex-col gap-4">
+          <div class="flex justify-between items-start">
+            <span class="text-xs text-gray-500 tracking-widest">ASSET 04</span>
+            <span class="text-xs text-yellow-400 tracking-widest border border-yellow-400 px-2 py-0.5">[ SIMULATING // PHASE: COLLAPSE ]</span>
+          </div>
+          <h3 class="text-sm font-bold tracking-widest">PROJECT_SUPERNOVA</h3>
+          <p class="text-xs text-gray-400 leading-relaxed tracking-wide">
+            Advanced stellar collapse simulation utilizing multi-threaded particle solvers. Optimized for the Sigma Engine to prevent signal drift during peak energy release.
+          </p>
+          <div class="text-xs text-gray-600 tracking-widest leading-relaxed">
+            <div>PARTICLE COUNT: 1.87 Billion</div>
+            <div>SOLVER        : Laplacian-Delta</div>
+            <div>PRIORITY      : Critical</div>
+          </div>
+          <div class="mt-auto pt-4 border-t border-zinc-800 flex items-center justify-between">
+            <span class="text-xs text-gray-600 tracking-widest">SUPERNOVA_SIM // ACTIVE</span>
+            <button class="text-xs tracking-widest border border-white px-3 py-1 hover:bg-white hover:text-black transition-colors">[ INITIALIZE STREAM ]</button>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -247,6 +267,80 @@
       >SUBMIT HASH</button>
     </div>
   </div>
+
+  <!-- NODE MAP -->
+  <section class="py-16 px-6 border-b border-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-xs tracking-widest text-gray-500 mb-8">// GLOBAL NODE LATTICE — DISTRIBUTED ROUTING NETWORK</div>
+
+      <!-- SVG Map -->
+      <div class="border border-white p-6 mb-6 relative overflow-hidden">
+        <svg viewBox="0 0 800 300" class="w-full" style="max-height:260px" xmlns="http://www.w3.org/2000/svg">
+          <!-- Grid lines -->
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a1a1a" stroke-width="0.5"/>
+            </pattern>
+          </defs>
+          <rect width="800" height="300" fill="url(#grid)"/>
+
+          <!-- Connection lines -->
+          <line x1="140" y1="80" x2="400" y2="150" stroke="#333" stroke-width="1" stroke-dasharray="4 3"/>
+          <line x1="400" y1="150" x2="580" y2="90" stroke="#333" stroke-width="1" stroke-dasharray="4 3"/>
+          <line x1="140" y1="80" x2="580" y2="90" stroke="#222" stroke-width="1" stroke-dasharray="2 5"/>
+          <line x1="400" y1="150" x2="260" y2="220" stroke="#333" stroke-width="1" stroke-dasharray="4 3"/>
+
+          <!-- Active traffic pulse line (US-WEST > EU-CENTRAL) -->
+          <line x1="140" y1="80" x2="580" y2="90" stroke="#4ade80" stroke-width="1" opacity="0.4">
+            <animate attributeName="opacity" values="0.1;0.6;0.1" dur="2.4s" repeatCount="indefinite"/>
+          </line>
+
+          <!-- Node: US-WEST-01 -->
+          <circle cx="140" cy="80" r="6" fill="#000" stroke="#fff" stroke-width="1.5"/>
+          <circle cx="140" cy="80" r="12" fill="none" stroke="#4ade80" stroke-width="1" opacity="0">
+            <animate attributeName="r" values="8;18;8" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.7;0;0.7" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <text x="150" y="72" fill="#9ca3af" font-size="9" font-family="IBM Plex Mono, monospace" letter-spacing="1">US-WEST-01</text>
+          <text x="150" y="84" fill="#4ade80" font-size="7" font-family="IBM Plex Mono, monospace" letter-spacing="1">ACTIVE</text>
+
+          <!-- Node: EU-CENTRAL-01 -->
+          <circle cx="580" cy="90" r="6" fill="#000" stroke="#fff" stroke-width="1.5"/>
+          <circle cx="580" cy="90" r="12" fill="none" stroke="#4ade80" stroke-width="1" opacity="0">
+            <animate attributeName="r" values="8;18;8" dur="2.6s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.7;0;0.7" dur="2.6s" repeatCount="indefinite"/>
+          </circle>
+          <text x="590" y="82" fill="#9ca3af" font-size="9" font-family="IBM Plex Mono, monospace" letter-spacing="1">EU-CENTRAL-01</text>
+          <text x="590" y="94" fill="#4ade80" font-size="7" font-family="IBM Plex Mono, monospace" letter-spacing="1">ACTIVE</text>
+
+          <!-- Node: JP-TOKYO-01 -->
+          <circle cx="400" cy="150" r="6" fill="#000" stroke="#fff" stroke-width="1.5"/>
+          <circle cx="400" cy="150" r="12" fill="none" stroke="#4ade80" stroke-width="1" opacity="0">
+            <animate attributeName="r" values="8;18;8" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.7;0;0.7" dur="3s" repeatCount="indefinite"/>
+          </circle>
+          <text x="412" y="143" fill="#9ca3af" font-size="9" font-family="IBM Plex Mono, monospace" letter-spacing="1">JP-TOKYO-01</text>
+          <text x="412" y="155" fill="#4ade80" font-size="7" font-family="IBM Plex Mono, monospace" letter-spacing="1">ACTIVE</text>
+
+          <!-- Node: SA-SHADOW-01 (dim / failover) -->
+          <circle cx="260" cy="220" r="6" fill="#000" stroke="#555" stroke-width="1.5"/>
+          <circle cx="260" cy="220" r="12" fill="none" stroke="#facc15" stroke-width="1" opacity="0">
+            <animate attributeName="r" values="8;16;8" dur="4s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.5;0;0.5" dur="4s" repeatCount="indefinite"/>
+          </circle>
+          <text x="272" y="213" fill="#6b7280" font-size="9" font-family="IBM Plex Mono, monospace" letter-spacing="1">SA-SHADOW-01</text>
+          <text x="272" y="225" fill="#facc15" font-size="7" font-family="IBM Plex Mono, monospace" letter-spacing="1">STANDBY</text>
+        </svg>
+      </div>
+
+      <!-- Traffic Ticker -->
+      <div class="border border-zinc-800 bg-zinc-950 px-4 py-3 flex items-center gap-4">
+        <span class="text-xs text-gray-500 tracking-widest shrink-0">ROUTING TRAFFIC:</span>
+        <span id="node-ticker" class="text-xs text-green-400 tracking-widest">NODE_01 &gt; [ENCRYPTED] &gt; NODE_03</span>
+        <span class="ml-auto text-xs text-gray-600 tracking-widest" id="lattice-status">LATTICE: NOMINAL</span>
+      </div>
+    </div>
+  </section>
 
   <!-- FOOTER -->
   <footer class="py-6 px-6">
@@ -307,7 +401,8 @@
       const logs = [
         { text: `COMPONENT:VAULT_DECRYPTION HASH:7E22A1BC STATUS:NEBULA_MANIFEST_LOADED` },
         { text: `COMPONENT:SIGMA_ENGINE HASH:B44A92F1 STATUS:CORE_NUCLEUS_ONLINE` },
-        { text: `COMPONENT:SIGNAL_ROUTER HASH:F23E11D9 STATUS:FAILOVER_PROTOCOL_ENGAGED` }
+        { text: `COMPONENT:SIGNAL_ROUTER HASH:F23E11D9 STATUS:FAILOVER_PROTOCOL_ENGAGED` },
+        { text: `COMPONENT:SUPERNOVA_SIM HASH:9D11B5A2 STATUS:PARTICLE_SOLVER_ACTIVE` }
       ];
       // Prepend in reverse so they appear in order (first log on top)
       for (let i = logs.length - 1; i >= 0; i--) {
@@ -385,7 +480,23 @@
 
     // Seed with initial lines
     for (let i = 0; i < 12; i++) addLine();
-    setInterval(addLine, 1200);
+
+    // Main audit loop — occasionally pulses NODE_MAP
+    let auditTick = 0;
+    setInterval(() => {
+      auditTick++;
+      // Every ~8 ticks (~9.6s) fire a NODE_MAP sync line instead of a normal line
+      if (auditTick % 8 === 0) {
+        const terminal = document.getElementById('terminal-output');
+        const line = document.createElement('div');
+        line.className = 'text-white';
+        line.textContent = `[${getTimestamp()}] COMPONENT:NODE_MAP HASH:${randomHex(8)} STATUS:SYNCING_GLOBAL_LATTICE`;
+        terminal.insertBefore(line, terminal.firstChild);
+        while (terminal.children.length > 40) terminal.removeChild(terminal.lastChild);
+      } else {
+        addLine();
+      }
+    }, 1200);
   </script>
 
 </body>
