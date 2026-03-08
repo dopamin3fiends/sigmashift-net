@@ -25,8 +25,8 @@
       <div class="flex gap-8">
         <a href="#" class="text-xs tracking-widest hover:text-gray-400 transition-colors">PROTOCOL</a>
         <a href="#" class="text-xs tracking-widest hover:text-gray-400 transition-colors">AUDIT</a>
-        <a href="#" class="text-xs tracking-widest hover:text-gray-400 transition-colors">OPERATOR</a>
-        <a href="#" class="text-xs tracking-widest hover:text-gray-400 transition-colors">ACCESS</a>
+        <a href="#" onclick="operatorClick(); return false;" class="text-xs tracking-widest hover:text-gray-400 transition-colors">OPERATOR</a>
+        <a href="#" onclick="openGateway(); return false;" class="text-xs tracking-widest hover:text-gray-400 transition-colors">ACCESS</a>
       </div>
     </div>
   </nav>
@@ -135,6 +135,55 @@
     </div>
   </section>
 
+  <!-- SOVEREIGN VAULT (hidden until authenticated) -->
+  <section id="sovereign-vault" class="hidden py-16 px-6 border-b border-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center justify-between mb-8">
+        <div class="text-xs tracking-widest text-gray-500">// SOVEREIGN VAULT — OP_LEVEL:1.87 AUTHORIZED</div>
+        <span class="text-xs text-green-400 tracking-widest border border-green-400 px-3 py-1">ACCESS GRANTED</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-white">
+
+        <div class="bg-black p-6 flex flex-col gap-4">
+          <div class="flex justify-between items-start">
+            <span class="text-xs text-gray-500 tracking-widest">ASSET 01</span>
+            <span class="text-xs text-gray-500 tracking-widest border border-gray-600 px-2 py-0.5">[ENCRYPTED]</span>
+          </div>
+          <h3 class="text-sm font-bold tracking-widest">PROJECT_NEBULA_VFX</h3>
+          <p class="text-xs text-gray-400 leading-relaxed tracking-wide">
+            Visual effects archive. Encrypted at rest. Access requires secondary vault key.
+          </p>
+          <div class="mt-auto pt-4 border-t border-zinc-800 text-xs text-gray-600 tracking-widest">VAULT_ENCRYPTION // LOCKED</div>
+        </div>
+
+        <div class="bg-black p-6 flex flex-col gap-4">
+          <div class="flex justify-between items-start">
+            <span class="text-xs text-gray-500 tracking-widest">ASSET 02</span>
+            <span class="text-xs text-green-400 tracking-widest border border-green-400 px-2 py-0.5">[LIVE]</span>
+          </div>
+          <h3 class="text-sm font-bold tracking-widest">SIGMA_ENGINE_V1.87</h3>
+          <p class="text-xs text-gray-400 leading-relaxed tracking-wide">
+            Core rendering engine. Version 1.87 final build. All modules compiled and active.
+          </p>
+          <div class="mt-auto pt-4 border-t border-zinc-800 text-xs text-gray-600 tracking-widest">HERO_ENGINE // RUNNING</div>
+        </div>
+
+        <div class="bg-black p-6 flex flex-col gap-4">
+          <div class="flex justify-between items-start">
+            <span class="text-xs text-gray-500 tracking-widest">ASSET 03</span>
+            <span class="text-xs text-yellow-400 tracking-widest border border-yellow-400 px-2 py-0.5">[SYNCING]</span>
+          </div>
+          <h3 class="text-sm font-bold tracking-widest">LAPLACIAN_RENDER_PIPELINE</h3>
+          <p class="text-xs text-gray-400 leading-relaxed tracking-wide">
+            Laplacian smoothing pipeline for render-time geometry. Sync in progress — ETA unknown.
+          </p>
+          <div class="mt-auto pt-4 border-t border-zinc-800 text-xs text-gray-600 tracking-widest">ASSET_PIPELINE // SYNCING</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- TERMINAL -->
   <section class="py-16 px-6 border-b border-white">
     <div class="max-w-7xl mx-auto">
@@ -146,6 +195,35 @@
     </div>
   </section>
 
+  <!-- ACCESS GATEWAY MODAL -->
+  <div id="gateway-modal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-95 flex items-center justify-center">
+    <div class="border border-white w-full max-w-md mx-6 p-8 flex flex-col gap-6">
+      <div class="flex justify-between items-start">
+        <div>
+          <div class="text-xs text-gray-500 tracking-widest mb-2">// AUTH_GATEWAY — CHALLENGE ISSUED</div>
+          <h2 class="text-base font-bold tracking-widest">OPERATOR ACCESS</h2>
+        </div>
+        <button onclick="closeGateway()" class="text-gray-500 hover:text-white text-xs tracking-widest transition-colors">[ CLOSE ]</button>
+      </div>
+      <div class="border-t border-zinc-800 pt-6">
+        <label class="text-xs text-gray-400 tracking-widest block mb-3">ENTER OPERATOR HASH</label>
+        <input
+          id="gateway-input"
+          type="password"
+          autocomplete="off"
+          placeholder="_ _ _ _ _ _ _ _ _ _ _ _"
+          class="w-full bg-transparent border border-white text-white text-xs tracking-widest px-4 py-3 outline-none placeholder-gray-700 focus:border-green-400 transition-colors"
+          onkeydown="if(event.key==='Enter') submitGateway()"
+        />
+        <div id="gateway-error" class="hidden mt-3 text-xs text-red-400 tracking-widest">HASH MISMATCH — ACCESS DENIED</div>
+      </div>
+      <button
+        onclick="submitGateway()"
+        class="border border-white text-xs tracking-widest py-3 hover:bg-white hover:text-black transition-colors font-bold"
+      >SUBMIT HASH</button>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer class="py-6 px-6">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
@@ -155,6 +233,61 @@
   </footer>
 
   <script>
+    let isAuthenticated = false;
+
+    function openGateway() {
+      if (isAuthenticated) {
+        scrollToVault();
+        return;
+      }
+      document.getElementById('gateway-modal').classList.remove('hidden');
+      document.getElementById('gateway-input').value = '';
+      document.getElementById('gateway-error').classList.add('hidden');
+      setTimeout(() => document.getElementById('gateway-input').focus(), 50);
+      prependAuthLine('COMPONENT:AUTH_GATEWAY', 'CHALLENGE_ISSUED', 'text-white');
+    }
+
+    function closeGateway() {
+      document.getElementById('gateway-modal').classList.add('hidden');
+    }
+
+    function operatorClick() {
+      if (isAuthenticated) {
+        scrollToVault();
+      } else {
+        openGateway();
+      }
+    }
+
+    function scrollToVault() {
+      document.getElementById('sovereign-vault').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function submitGateway() {
+      const input = document.getElementById('gateway-input').value.trim();
+      if (input === '1.87-SIGMA-2026') {
+        isAuthenticated = true;
+        closeGateway();
+        document.getElementById('sovereign-vault').classList.remove('hidden');
+        prependAuthLine('COMPONENT:AUTH_GATEWAY', 'ACCESS_GRANTED (OP_LEVEL:1.87)', 'text-green-400');
+        setTimeout(scrollToVault, 150);
+      } else {
+        document.getElementById('gateway-error').classList.remove('hidden');
+        prependAuthLine('COMPONENT:AUTH_GATEWAY', 'ACCESS_DENIED', 'text-red-400');
+      }
+    }
+
+    function prependAuthLine(component, status, colorClass) {
+      const terminal = document.getElementById('terminal-output');
+      const timestamp = getTimestamp();
+      const hash = randomHex(8);
+      const line = document.createElement('div');
+      line.className = colorClass;
+      line.textContent = `[${timestamp}] ${component} HASH:${hash} STATUS:${status}`;
+      terminal.insertBefore(line, terminal.firstChild);
+      while (terminal.children.length > 40) terminal.removeChild(terminal.lastChild);
+    }
+
     const components = [
       'NAV_BAR',
       'HERO_ENGINE',
