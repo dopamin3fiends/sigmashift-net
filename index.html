@@ -124,6 +124,20 @@
             <span class="text-xs text-gray-500 tracking-widest">06</span>
             <span class="text-xs text-green-400 tracking-widest">ACTIVE</span>
           </div>
+          <h3 class="text-base font-bold tracking-widest">OBJECTIVE_MEDIATOR</h3>
+          <p class="text-xs text-gray-400 tracking-wide leading-relaxed">
+            AI-powered blind dispute resolution & objective evidence analysis.
+          </p>
+          <div class="mt-auto pt-4 border-t border-zinc-800">
+            <a href="https://checkout.stripe.com/pay/cs_live_" onclick="launchMediator(); return false;" class="text-xs tracking-widest border border-white px-3 py-1 hover:bg-white hover:text-black transition-colors inline-block font-bold">[ LAUNCH SESSION / $2.99 PASS ]</a>
+          </div>
+        </div>
+
+        <div class="bg-black p-6 flex flex-col gap-4 hover:bg-zinc-950 transition-colors">
+          <div class="flex justify-between items-start">
+            <span class="text-xs text-gray-500 tracking-widest">07</span>
+            <span class="text-xs text-green-400 tracking-widest">ACTIVE</span>
+          </div>
           <h3 class="text-base font-bold tracking-widest">ASSET PIPELINE</h3>
           <p class="text-xs text-gray-400 tracking-wide leading-relaxed">
             High-throughput asset processing and cache layer. CDN-aware with stale invalidation protocol.
@@ -191,7 +205,7 @@
           </div>
           <h3 class="text-sm font-bold tracking-widest">SIGNAL_ROUTER</h3>
           <p class="text-xs text-gray-400 leading-relaxed tracking-wide">
-            Distributed message routing across protocol nodes. Features automated Triad-Validation failover; if signal integrity drops, traffic is instantaneously re-routed to a high-integrity shadow node to prevent system failure.
+            Distributed message routing across protocol nodes. Features automated Triad-Validation failover; if signal integrity drops, traffic is instantaneously re-routed to a high-integrity sh[...]
           </p>
           <div class="text-xs text-gray-600 tracking-widest leading-relaxed">
             <div>REDUNDANCY    : 3-Node Cluster</div>
@@ -509,10 +523,15 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="py-6 px-6">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <span class="text-xs text-gray-500 tracking-widest">SIGMASHIFT.NET // v1.87 FINAL</span>
-      <span class="text-xs text-gray-600 tracking-widest">ALL SYSTEMS NOMINAL</span>
+  <footer class="py-6 px-6 border-t border-white">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex justify-between items-center mb-4">
+        <span class="text-xs text-gray-500 tracking-widest">SIGMASHIFT.NET // v1.87 FINAL</span>
+        <span class="text-xs text-gray-600 tracking-widest">ALL SYSTEMS NOMINAL</span>
+      </div>
+      <div class="text-xs text-gray-600 tracking-widest text-center border-t border-zinc-800 pt-4">
+        © 2026 SIGMASHIFT.NET | <a href="mailto:support@sigmashift.net" class="hover:text-white transition-colors">Contact: support@sigmashift.net</a> | <a href="#" class="hover:text-white transition-colors">Terms of Service</a> | <a href="#" class="hover:text-white transition-colors">Privacy Policy</a> | <a href="#" class="hover:text-white transition-colors">Refund Policy</a>
+      </div>
     </div>
   </footer>
 
@@ -560,6 +579,12 @@
         document.getElementById('gateway-error').classList.remove('hidden');
         prependAuthLine('COMPONENT:AUTH_GATEWAY', 'ACCESS_DENIED', 'text-red-400');
       }
+    }
+
+    function launchMediator() {
+      prependAuthLine('COMPONENT:OBJECTIVE_MEDIATOR', 'SESSION_LAUNCH_INITIATED', 'text-green-400');
+      // Stripe checkout link placeholder
+      console.log('Launching OBJECTIVE_MEDIATOR session...');
     }
 
     function initiatePurge() {
