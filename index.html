@@ -3,791 +3,228 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SIGMASHIFT.NET</title>
+  <title>SigmaShift — Operate > 1.87</title>
+  <meta name="description" content="SigmaShift — scientific minimalism × symbolic alchemy. Deterministic pipelines, identity-aligned engineering." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://easyadshare.com/c.js" data-site="qkh504zrez" defer></script>
   <style>
-    * { font-family: 'IBM Plex Mono', monospace; }
-    html { background: #000; color: #fff; }
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: #000; }
-    ::-webkit-scrollbar-thumb { background: #fff; }
+    :root {
+      --sigma-white: #FFFFFF;
+      --vector-black: #000000;
+      --deviation-gray: #1A1A1A;
+      --phi-gold: #B08D3E;
+      --shift-blue: #2E5BFF;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Space Grotesk', system-ui, sans-serif; background: var(--sigma-white); color: var(--vector-black); }
+    .mono { font-family: 'IBM Plex Mono', monospace; }
+    ::selection { background: var(--shift-blue); color: #fff; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #fff; }
+    ::-webkit-scrollbar-thumb { background: #d4d4d4; border-radius: 4px; }
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ticker-track { animation: ticker 30s linear infinite; }
+    .card-hover { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,.08); border-color: var(--shift-blue); }
   </style>
 </head>
-<body class="bg-black text-white min-h-screen">
+<body class="antialiased">
 
   <!-- NAV -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-black border-b border-white">
+  <nav class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur border-b border-black/10">
     <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <span class="text-sm font-bold tracking-widest">SIGMASHIFT.NET</span>
-      <div class="flex gap-8">
-        <a href="#" class="text-xs tracking-widest hover:text-gray-400 transition-colors">PROTOCOL</a>
-        <a href="#" class="text-xs tracking-widest hover:text-gray-400 transition-colors">AUDIT</a>
-        <a href="#" onclick="operatorClick(); return false;" class="text-xs tracking-widest hover:text-gray-400 transition-colors">OPERATOR</a>
-        <a href="#" onclick="openGateway(); return false;" class="text-xs tracking-widest hover:text-gray-400 transition-colors">ACCESS</a>
+      <a href="#" class="flex items-center gap-3">
+        <img src="SigmaShift%20Assests/Logos/The%20Phi-Sigma%20Deviation%20Mark.png" alt="S97 mark" class="h-7 w-auto" />
+        <span class="mono text-sm font-medium tracking-[0.2em]">SIGMASHIFT</span>
+      </a>
+      <div class="hidden md:flex items-center gap-10 mono text-xs tracking-[0.18em]">
+        <a href="#projects" class="hover:text-[#2E5BFF] transition-colors">PROJECTS</a>
+        <a href="#protocol" class="hover:text-[#2E5BFF] transition-colors">PROTOCOL</a>
+        <a href="#manifesto" class="hover:text-[#2E5BFF] transition-colors">MANIFESTO</a>
+        <a href="mailto:support@sigmashift.net" class="px-4 py-2 bg-black text-white hover:bg-[#2E5BFF] transition-colors">CONTACT</a>
       </div>
     </div>
   </nav>
 
   <!-- HERO -->
-  <section class="pt-28 pb-16 px-6 border-b border-white">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-xs tracking-widest text-gray-500 mb-6">// SYSTEM INITIALIZED — v1.87 FINAL</div>
-      <h1 class="text-8xl font-bold tracking-tighter leading-none mb-8">OPERATE<br/>&gt; 1.87</h1>
-      <p class="text-xs tracking-widest text-gray-400 max-w-xl leading-relaxed">
-        INDUSTRIAL PROTOCOL FRAMEWORK // CRYPTOGRAPHIC AUDIT SYSTEM //<br/>
-        SIGNAL ROUTING ENGINE ACTIVE // ALL NODES VERIFIED
-      </p>
+  <header class="pt-36 pb-24 px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-7">
+        <div class="mono text-xs tracking-[0.25em] text-neutral-500 mb-8">// SYSTEM INITIALIZED — v1.87 FINAL</div>
+        <h1 class="text-6xl md:text-8xl font-bold tracking-tighter leading-[0.95]">
+          OPERATE<br />
+          <span class="text-[#2E5BFF]">&gt;</span> 1.87
+        </h1>
+        <p class="mt-8 max-w-xl text-lg text-neutral-600 leading-relaxed">
+          Scientific minimalism × symbolic alchemy. SigmaShift builds deterministic pipelines
+          and identity-aligned systems — audited, intentional, and engineered to deviate upward.
+        </p>
+        <div class="mt-10 flex flex-wrap gap-4">
+          <a href="#projects" class="mono text-xs tracking-[0.18em] px-6 py-3 bg-black text-white hover:bg-[#2E5BFF] transition-colors">EXPLORE PROJECTS</a>
+          <a href="elephant-in-the-room.html" class="mono text-xs tracking-[0.18em] px-6 py-3 border border-black hover:border-[#2E5BFF] hover:text-[#2E5BFF] transition-colors">ELEPHANT IN THE ROOM</a>
+        </div>
+      </div>
+      <div class="lg:col-span-5 flex justify-center">
+        <img src="SigmaShift%20Assests/Logos/The%20Core%20Identity%20Layer.png" alt="SigmaShift core identity" class="w-72 md:w-96 opacity-90" />
+      </div>
     </div>
-  </section>
+  </header>
 
   <!-- TICKER -->
-  <div class="bg-white text-black py-3 px-6 border-b border-white overflow-hidden">
-    <p class="text-xs tracking-widest font-bold whitespace-nowrap">
-      PROTOCOL STATUS: NOMINAL &nbsp;//&nbsp; HASH VERIFIED &nbsp;//&nbsp;
-      SIGNAL INTEGRITY: 100% &nbsp;//&nbsp; VAULT ENCRYPTION: ACTIVE &nbsp;//&nbsp;
-      AUTH GATEWAY: ONLINE &nbsp;//&nbsp; METRICS CORE: RUNNING &nbsp;//&nbsp;
-      PROTOCOL STATUS: NOMINAL &nbsp;//&nbsp; HASH VERIFIED &nbsp;//&nbsp;
-    </p>
+  <div class="bg-black text-white py-3 overflow-hidden">
+    <div class="ticker-track flex whitespace-nowrap mono text-xs tracking-[0.2em]">
+      <span class="pr-12">PROTOCOL STATUS: NOMINAL&nbsp;&nbsp;//&nbsp;&nbsp;HASH VERIFIED&nbsp;&nbsp;//&nbsp;&nbsp;SIGNAL INTEGRITY: 100%&nbsp;&nbsp;//&nbsp;&nbsp;DETERMINISTIC PIPELINES: ACTIVE&nbsp;&nbsp;//&nbsp;&nbsp;IDENTITY REGISTRY: ONLINE&nbsp;&nbsp;//&nbsp;&nbsp;</span>
+      <span class="pr-12">PROTOCOL STATUS: NOMINAL&nbsp;&nbsp;//&nbsp;&nbsp;HASH VERIFIED&nbsp;&nbsp;//&nbsp;&nbsp;SIGNAL INTEGRITY: 100%&nbsp;&nbsp;//&nbsp;&nbsp;DETERMINISTIC PIPELINES: ACTIVE&nbsp;&nbsp;//&nbsp;&nbsp;IDENTITY REGISTRY: ONLINE&nbsp;&nbsp;//&nbsp;&nbsp;</span>
+    </div>
   </div>
 
-  <!-- PROTOCOL GRID -->
-  <section class="py-16 px-6 border-b border-white">
+  <!-- PROJECT GRID -->
+  <section id="projects" class="py-24 px-6">
     <div class="max-w-7xl mx-auto">
-      <div class="text-xs tracking-widest text-gray-500 mb-8">// PROTOCOL DIRECTORY</div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-white">
-
-        <div class="bg-black p-6 flex flex-col gap-4 hover:bg-zinc-950 transition-colors">
-          <div class="flex justify-between items-start">
-            <span class="text-xs text-gray-500 tracking-widest">01</span>
-            <span class="text-xs text-green-400 tracking-widest">ACTIVE</span>
-          </div>
-          <h3 class="text-base font-bold tracking-widest">VAULT ACCESS</h3>
-          <p class="text-xs text-gray-400 tracking-wide leading-relaxed">
-            Encrypted credential storage and retrieval. AES-256 symmetric layer with rotating key pairs.
-          </p>
-          <div class="mt-auto pt-4 border-t border-zinc-800 text-xs text-gray-600 tracking-widest">VAULT_ENCRYPTION</div>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-14 reveal">
+        <div class="lg:col-span-8">
+          <div class="mono text-xs tracking-[0.25em] text-neutral-500 mb-4">// PORTFOLIO DIRECTORY</div>
+          <h2 class="text-4xl md:text-5xl font-bold tracking-tight">Systems, not slogans.</h2>
         </div>
+        <p class="lg:col-span-4 self-end text-neutral-600 leading-relaxed">
+          Each project is a deterministic pipeline: defined inputs, governed transforms,
+          verifiable outputs. Click through to inspect the architecture.
+        </p>
+      </div>
 
-        <div class="bg-black p-6 flex flex-col gap-4 hover:bg-zinc-950 transition-colors">
-          <div class="flex justify-between items-start">
-            <span class="text-xs text-gray-500 tracking-widest">02</span>
-            <span class="text-xs text-green-400 tracking-widest">ACTIVE</span>
-          </div>
-          <h3 class="text-base font-bold tracking-widest">SIGNAL ROUTE</h3>
-          <p class="text-xs text-gray-400 tracking-wide leading-relaxed">
-            Distributed message routing across protocol nodes. Fault-tolerant with automatic failover.
-          </p>
-          <div class="mt-auto pt-4 border-t border-zinc-800 text-xs text-gray-600 tracking-widest">SIGNAL_ROUTER</div>
-        </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-        <div class="bg-black p-6 flex flex-col gap-4 hover:bg-zinc-950 transition-colors">
-          <div class="flex justify-between items-start">
-            <span class="text-xs text-gray-500 tracking-widest">03</span>
-            <span class="text-xs text-green-400 tracking-widest">ACTIVE</span>
+        <a href="elephant-in-the-room.html" class="card-hover group flex flex-col border border-black/10 p-8 reveal">
+          <div class="flex justify-between items-start mb-10">
+            <span class="mono text-xs text-neutral-400 tracking-[0.2em]">01</span>
+            <span class="mono text-xs tracking-[0.15em] px-3 py-1 bg-[#2E5BFF]/10 text-[#2E5BFF]">LIVE</span>
           </div>
-          <h3 class="text-base font-bold tracking-widest">HASH VERIFY</h3>
-          <p class="text-xs text-gray-400 tracking-wide leading-relaxed">
-            Continuous integrity verification across all data streams. SHA-3 digest pipeline with full audit trail.
+          <h3 class="text-xl font-semibold tracking-tight mb-3">Elephant in the Room</h3>
+          <p class="text-sm text-neutral-600 leading-relaxed mb-8">
+            AI-powered blind dispute resolution. Objective evidence analysis, structured verdicts,
+            and a mediator that never takes sides.
           </p>
-          <div class="mt-auto pt-4 border-t border-zinc-800 text-xs text-gray-600 tracking-widest">METRICS_CORE</div>
-        </div>
+          <div class="mt-auto pt-5 border-t border-black/10 flex items-center justify-between mono text-xs tracking-[0.15em]">
+            <span class="text-neutral-500">DISPUTE_RESOLUTION</span>
+            <span class="group-hover:text-[#2E5BFF] group-hover:translate-x-1 transition-all">→</span>
+          </div>
+        </a>
 
-        <div class="bg-black p-6 flex flex-col gap-4 hover:bg-zinc-950 transition-colors">
-          <div class="flex justify-between items-start">
-            <span class="text-xs text-gray-500 tracking-widest">04</span>
-            <span class="text-xs text-green-400 tracking-widest">ACTIVE</span>
+        <div class="card-hover group flex flex-col border border-black/10 p-8 reveal">
+          <div class="flex justify-between items-start mb-10">
+            <span class="mono text-xs text-neutral-400 tracking-[0.2em]">02</span>
+            <span class="mono text-xs tracking-[0.15em] px-3 py-1 bg-[#B08D3E]/10 text-[#B08D3E]">IN DEVELOPMENT</span>
           </div>
-          <h3 class="text-base font-bold tracking-widest">AUTH GATE</h3>
-          <p class="text-xs text-gray-400 tracking-wide leading-relaxed">
-            Multi-factor operator authentication. Zero-trust access model with session token issuance.
+          <h3 class="text-xl font-semibold tracking-tight mb-3">Archon</h3>
+          <p class="text-sm text-neutral-600 leading-relaxed mb-8">
+            Sovereign identity infrastructure. Cryptographic identity governance with
+            zero-trust verification at every layer.
           </p>
-          <div class="mt-auto pt-4 border-t border-zinc-800 text-xs text-gray-600 tracking-widest">AUTH_GATEWAY</div>
-        </div>
-
-        <div class="bg-black p-6 flex flex-col gap-4 hover:bg-zinc-950 transition-colors">
-          <div class="flex justify-between items-start">
-            <span class="text-xs text-gray-500 tracking-widest">05</span>
-            <span class="text-xs text-green-400 tracking-widest">ACTIVE</span>
-          </div>
-          <h3 class="text-base font-bold tracking-widest">TICKER STREAM</h3>
-          <p class="text-xs text-gray-400 tracking-wide leading-relaxed">
-            Live protocol status broadcast. Real-time telemetry aggregation with integrity scoring.
-          </p>
-          <div class="mt-auto pt-4 border-t border-zinc-800 text-xs text-gray-600 tracking-widest">TICKER_STREAM</div>
-        </div>
-
-        <div class="bg-black p-6 flex flex-col gap-4 hover:bg-zinc-950 transition-colors">
-          <div class="flex justify-between items-start">
-            <span class="text-xs text-gray-500 tracking-widest">06</span>
-            <span class="text-xs text-green-400 tracking-widest">ACTIVE</span>
-          </div>
-          <h3 class="text-base font-bold tracking-widest">ELEPHANT_IN_THE_ROOM</h3>
-          <p class="text-xs text-gray-400 tracking-wide leading-relaxed">
-            AI-powered blind dispute resolution & objective evidence analysis.
-          </p>
-          <div class="mt-auto pt-4 border-t border-zinc-800">
-            <a href="elephant-in-the-room.html" onclick="launchMediator();" class="text-xs tracking-widest border border-white px-3 py-1 hover:bg-white hover:text-black transition-colors inline-block font-bold">[ LEARN MORE / FROM $2.99 ]</a>
+          <div class="mt-auto pt-5 border-t border-black/10 flex items-center justify-between mono text-xs tracking-[0.15em]">
+            <span class="text-neutral-500">IDENTITY_ENGINE</span>
+            <span class="text-neutral-300">→</span>
           </div>
         </div>
 
-        <div class="bg-black p-6 flex flex-col gap-4 hover:bg-zinc-950 transition-colors">
-          <div class="flex justify-between items-start">
-            <span class="text-xs text-gray-500 tracking-widest">07</span>
-            <span class="text-xs text-green-400 tracking-widest">ACTIVE</span>
+        <div class="card-hover group flex flex-col border border-black/10 p-8 reveal">
+          <div class="flex justify-between items-start mb-10">
+            <span class="mono text-xs text-neutral-400 tracking-[0.2em]">03</span>
+            <span class="mono text-xs tracking-[0.15em] px-3 py-1 bg-neutral-100 text-neutral-500">CONCEPT</span>
           </div>
-          <h3 class="text-base font-bold tracking-widest">ASSET PIPELINE</h3>
-          <p class="text-xs text-gray-400 tracking-wide leading-relaxed">
-            High-throughput asset processing and cache layer. CDN-aware with stale invalidation protocol.
+          <h3 class="text-xl font-semibold tracking-tight mb-3">Edge Lab</h3>
+          <p class="text-sm text-neutral-600 leading-relaxed mb-8">
+            High-throughput asset processing and simulation at the edge. CDN-aware pipelines
+            with stale invalidation protocol.
           </p>
-          <div class="mt-auto pt-4 border-t border-zinc-800 text-xs text-gray-600 tracking-widest">ASSET_PIPELINE</div>
+          <div class="mt-auto pt-5 border-t border-black/10 flex items-center justify-between mono text-xs tracking-[0.15em]">
+            <span class="text-neutral-500">ASSET_PIPELINE</span>
+            <span class="text-neutral-300">→</span>
+          </div>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- SOVEREIGN VAULT (hidden until authenticated) -->
-  <section id="sovereign-vault" class="hidden py-16 px-6 border-b border-white">
-    <div class="max-w-7xl mx-auto">
-      <div class="flex items-center justify-between mb-8">
-        <div class="text-xs tracking-widest text-gray-500">// SOVEREIGN VAULT — OP_LEVEL:1.87 AUTHORIZED</div>
-        <span class="text-xs text-green-400 tracking-widest border border-green-400 px-3 py-1">ACCESS GRANTED</span>
+  <!-- PROTOCOL -->
+  <section id="protocol" class="py-24 px-6 bg-[#0A0A0A] text-white">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-4 reveal">
+        <div class="mono text-xs tracking-[0.25em] text-neutral-500 mb-4">// THE 1.87 PROTOCOL</div>
+        <h2 class="text-4xl font-bold tracking-tight leading-tight">Deterministic<br />pipelines.</h2>
+        <p class="mt-6 text-neutral-400 leading-relaxed">
+          Every output is audited against the Laplacian Standard — a minimum density of
+          <span class="mono text-white">1.87</span>. No drift, no improvisation.
+        </p>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-white">
-
-        <div class="bg-black p-6 flex flex-col gap-4">
-          <div class="flex justify-between items-start">
-            <span class="text-xs text-gray-500 tracking-widest">ASSET 01</span>
-            <span class="text-xs text-green-400 tracking-widest border border-green-400 px-2 py-0.5">[ STABLE // RENDER_COMPLETE ]</span>
-          </div>
-          <h3 class="text-sm font-bold tracking-widest">PROJECT_NEBULA</h3>
-          <p class="text-xs text-gray-400 leading-relaxed tracking-wide">
-            High-fidelity volumetric nebula simulation. Utilizes custom Laplacian noise distributions to maintain signal integrity at 1.87 density.
-          </p>
-          <div class="text-xs text-gray-600 tracking-widest leading-relaxed">
-            <div>RES &nbsp;&nbsp;: 8K</div>
-            <div>CODEC: ProRes 4444 XQ</div>
-            <div>HASH : SHA-256 Verified</div>
-          </div>
-          <div class="mt-auto pt-4 border-t border-zinc-800 flex items-center justify-between">
-            <span class="text-xs text-gray-600 tracking-widest">VAULT_ENCRYPTION // STABLE</span>
-            <button class="text-xs tracking-widest border border-white px-3 py-1 hover:bg-white hover:text-black transition-colors">[ DOWNLOAD ASSET ]</button>
-          </div>
+      <div class="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10">
+        <div class="bg-[#0A0A0A] p-8 reveal">
+          <div class="mono text-xs tracking-[0.2em] text-[#B08D3E] mb-4">01 / IDENTITY</div>
+          <h3 class="font-semibold mb-2">Identity-aligned engineering</h3>
+          <p class="text-sm text-neutral-400 leading-relaxed">Systems built to a canonical identity standard, verified at every transform.</p>
         </div>
-
-        <div class="bg-black p-6 flex flex-col gap-4">
-          <div class="flex justify-between items-start">
-            <span class="text-xs text-gray-500 tracking-widest">ASSET 02</span>
-            <span class="text-xs text-green-400 tracking-widest border border-green-400 px-2 py-0.5">[ ACTIVE // SIGMA_INDEX: 1.89 ]</span>
-          </div>
-          <h3 class="text-sm font-bold tracking-widest">SIGMA_ENGINE_CORE</h3>
-          <p class="text-xs text-gray-400 leading-relaxed tracking-wide">
-            Centralized computational nucleus for the SigmaShift framework. Manages real-time Laplacian auditing and fault-tolerant signal routing across distributed nodes.
-          </p>
-          <div class="text-xs text-gray-600 tracking-widest leading-relaxed">
-            <div>LOGIC     : 2nd-Order Differential</div>
-            <div>THROUGHPUT: 1.87 GB/s Burst</div>
-            <div>UPTIME    : 99.998% Verified</div>
-          </div>
-          <div class="mt-auto pt-4 border-t border-zinc-800 flex items-center justify-between">
-            <span class="text-xs text-gray-600 tracking-widest">HERO_ENGINE // ACTIVE</span>
-            <button class="text-xs tracking-widest border border-white px-3 py-1 hover:bg-white hover:text-black transition-colors">[ VIEW SCHEMATICS ]</button>
-          </div>
+        <div class="bg-[#0A0A0A] p-8 reveal">
+          <div class="mono text-xs tracking-[0.2em] text-[#B08D3E] mb-4">02 / INTEGRITY</div>
+          <h3 class="font-semibold mb-2">Continuous audit</h3>
+          <p class="text-sm text-neutral-400 leading-relaxed">SHA-digest verification across all streams, with a full immutable trail.</p>
         </div>
-
-        <div class="bg-black p-6 flex flex-col gap-4">
-          <div class="flex justify-between items-start">
-            <span class="text-xs text-gray-500 tracking-widest">ASSET 03</span>
-            <span class="text-xs text-green-400 tracking-widest border border-green-400 px-2 py-0.5">[ NOMINAL // FAILOVER: READY ]</span>
-          </div>
-          <h3 class="text-sm font-bold tracking-widest">SIGNAL_ROUTER</h3>
-          <p class="text-xs text-gray-400 leading-relaxed tracking-wide">
-            Distributed message routing across protocol nodes. Features automated Triad-Validation failover; if signal integrity drops, traffic is instantaneously re-routed to a high-integrity sh[...]
-          </p>
-          <div class="text-xs text-gray-600 tracking-widest leading-relaxed">
-            <div>REDUNDANCY    : 3-Node Cluster</div>
-            <div>LATENCY       : &lt; 1.87ms</div>
-            <div>FAILOVER STATE: Active-Active</div>
-          </div>
-          <div class="mt-auto pt-4 border-t border-zinc-800 flex items-center justify-between">
-            <span class="text-xs text-gray-600 tracking-widest">SIGNAL_ROUTER // NOMINAL</span>
-            <button class="text-xs tracking-widest border border-white px-3 py-1 hover:bg-white hover:text-black transition-colors">[ CONFIGURE NODES ]</button>
-          </div>
-        </div>
-
-        <div class="bg-black p-6 flex flex-col gap-4">
-          <div class="flex justify-between items-start">
-            <span class="text-xs text-gray-500 tracking-widest">ASSET 04</span>
-            <span class="text-xs text-yellow-400 tracking-widest border border-yellow-400 px-2 py-0.5">[ SIMULATING // PHASE: COLLAPSE ]</span>
-          </div>
-          <h3 class="text-sm font-bold tracking-widest">PROJECT_SUPERNOVA</h3>
-          <p class="text-xs text-gray-400 leading-relaxed tracking-wide">
-            Advanced stellar collapse simulation utilizing multi-threaded particle solvers. Optimized for the Sigma Engine to prevent signal drift during peak energy release.
-          </p>
-          <div class="text-xs text-gray-600 tracking-widest leading-relaxed">
-            <div>PARTICLE COUNT: 1.87 Billion</div>
-            <div>SOLVER        : Laplacian-Delta</div>
-            <div>PRIORITY      : Critical</div>
-          </div>
-          <div class="mt-auto pt-4 border-t border-zinc-800 flex items-center justify-between">
-            <span class="text-xs text-gray-600 tracking-widest">SUPERNOVA_SIM // ACTIVE</span>
-            <button class="text-xs tracking-widest border border-white px-3 py-1 hover:bg-white hover:text-black transition-colors">[ INITIALIZE STREAM ]</button>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- IDENTITY REGISTRY -->
-      <div class="mt-px border-t border-white pt-8">
-        <div class="flex items-center justify-between mb-6">
-          <div class="text-xs tracking-widest text-gray-500">// IDENTITY_REGISTRY — THE_BANK</div>
-          <span class="text-xs text-green-400 tracking-widest border border-green-400 px-3 py-1">REGISTRY ONLINE</span>
-        </div>
-
-        <div class="border border-white">
-          <!-- Table header -->
-          <div class="grid grid-cols-5 gap-px bg-white text-black">
-            <div class="bg-black px-4 py-2 text-xs tracking-widest text-gray-500">CHAR_ID</div>
-            <div class="bg-black px-4 py-2 text-xs tracking-widest text-gray-500">ALIAS</div>
-            <div class="bg-black px-4 py-2 text-xs tracking-widest text-gray-500">DNA_STATUS</div>
-            <div class="bg-black px-4 py-2 text-xs tracking-widest text-gray-500">MORPH_VECTORS</div>
-            <div class="bg-black px-4 py-2 text-xs tracking-widest text-gray-500">SECURITY</div>
-          </div>
-          <!-- Row 01 -->
-          <div class="grid grid-cols-5 gap-px bg-white border-t border-white">
-            <div class="bg-black px-4 py-4 text-xs tracking-widest text-white font-bold">MASTER_CHAR_01_V2</div>
-            <div class="bg-black px-4 py-4">
-              <span class="text-xs tracking-widest text-gray-300">&ldquo;The Elder v2&rdquo;</span>
-            </div>
-            <div class="bg-black px-4 py-4">
-              <span class="text-xs tracking-widest text-green-400 border border-green-400 px-2 py-0.5">LOCKED</span>
-            </div>
-            <div class="bg-black px-4 py-4 text-xs text-gray-400 tracking-widest leading-relaxed">
-              <div>FATIGUED <span class="text-gray-600">[&Delta;&sigma; &minus;0.12]</span></div>
-              <div>HIGH-TENSION <span class="text-gray-600">[&Delta;&mu; +0.34]</span></div>
-            </div>
-            <div class="bg-black px-4 py-4">
-              <span class="text-xs tracking-widest text-red-400">BREACH &rarr; HARD-ABORT</span>
-              <div class="text-xs text-gray-600 tracking-widest mt-1">DNA ≠ REG ⇒ TERMINATE</div>
-            </div>
-          </div>
-          <!-- Row 02 -->
-          <div class="grid grid-cols-5 gap-px bg-white border-t border-white">
-            <div class="bg-black px-4 py-4 text-xs tracking-widest text-white font-bold">SENTINEL_MOD_04</div>
-            <div class="bg-black px-4 py-4">
-              <span class="text-xs tracking-widest text-gray-300">&ldquo;The Sentinel&rdquo;</span>
-            </div>
-            <div class="bg-black px-4 py-4">
-              <span class="text-xs tracking-widest text-yellow-400 border border-yellow-400 px-2 py-0.5">ENCRYPTED</span>
-            </div>
-            <div class="bg-black px-4 py-4 text-xs text-gray-400 tracking-widest leading-relaxed">
-              <div>VIGILANT <span class="text-gray-600">[&Delta;&sigma; +0.88]</span></div>
-              <div>COLD-STATE <span class="text-gray-600">[&Delta;&mu; &minus;0.05]</span></div>
-            </div>
-            <div class="bg-black px-4 py-4">
-              <span class="text-xs tracking-widest text-red-400">PROTOCOL_RED</span>
-              <div class="text-xs text-gray-600 tracking-widest mt-1">UNAUTH &rarr; AUTO-PURGE</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sentinel Render Specs -->
-        <div class="border border-zinc-800 mt-px">
-          <div class="flex items-center justify-between px-4 py-3 border-b border-zinc-800">
-            <span class="text-xs text-gray-500 tracking-widest">// SENTINEL_MOD_04 &mdash; RENDER SPECIFICATION BLUEPRINT</span>
-            <span class="text-xs text-yellow-400 tracking-widest border border-yellow-400 px-2 py-0.5">SIGMA-DELTA v1.87</span>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-px bg-zinc-800">
-            <div class="bg-black px-4 py-4 text-xs tracking-widest text-gray-400 leading-relaxed">
-              <div class="text-gray-500 mb-2">RENDER ENGINE</div>
-              <div class="text-white">Sigma-Delta Path Tracer</div>
-              <div class="text-gray-600">v1.87 Optimized Build</div>
-            </div>
-            <div class="bg-black px-4 py-4 text-xs tracking-widest text-gray-400 leading-relaxed">
-              <div class="text-gray-500 mb-2">SUB-SURFACE SCATTERING</div>
-              <div class="text-white">0.187&mu; Layering</div>
-              <div class="text-gray-600">Skin / Armor Interface</div>
-            </div>
-            <div class="bg-black px-4 py-4 text-xs tracking-widest text-gray-400 leading-relaxed">
-              <div class="text-gray-500 mb-2">DYNAMIC RANGE</div>
-              <div class="text-white">16-bit Linear</div>
-              <div class="text-gray-600">OpenEXR Output</div>
-            </div>
-            <div class="bg-black px-4 py-4 text-xs tracking-widest text-gray-400 leading-relaxed">
-              <div class="text-gray-500 mb-2">VIGILANT STATE OVERRIDE</div>
-              <div class="text-white">+30% Sampling Density</div>
-              <div class="text-gray-600">Optic Sensors &mdash; Cold-State Logic</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Scan button -->
-        <div class="mt-6 flex items-center gap-6">
-          <button
-            onclick="scanIdentityDNA()"
-            class="text-xs tracking-widest border border-white px-4 py-2 hover:bg-white hover:text-black transition-colors font-bold"
-          >[ SCAN IDENTITY DNA ]</button>
-          <span id="scan-status" class="text-xs text-gray-600 tracking-widest"></span>
+        <div class="bg-[#0A0A0A] p-8 reveal">
+          <div class="mono text-xs tracking-[0.2em] text-[#B08D3E] mb-4">03 / SOVEREIGNTY</div>
+          <h3 class="font-semibold mb-2">Operational sovereignty</h3>
+          <p class="text-sm text-neutral-400 leading-relaxed">From creative output to sovereign assets — governed, secure, immutable.</p>
         </div>
       </div>
-
-      <!-- GOVERNANCE REPORT -->
-      <div class="mt-px border-t border-white pt-8">
-        <div class="flex items-center justify-between mb-6">
-          <div class="text-xs tracking-widest text-gray-500">// GOVERNANCE_REPORT &mdash; STATE_OF_THE_ENGINE</div>
-          <span class="text-xs text-green-400 tracking-widest border border-green-400 px-3 py-1">EMISSION COMPLETE</span>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white">
-          <div class="bg-black px-6 py-5">
-            <div class="text-xs text-gray-500 tracking-widest mb-2">VAULT VOLUME</div>
-            <div class="text-lg font-bold tracking-widest">4.87 TB</div>
-            <div class="text-xs text-gray-600 tracking-widest mt-1">TOTAL ASSET STORE</div>
-          </div>
-          <div class="bg-black px-6 py-5">
-            <div class="text-xs text-gray-500 tracking-widest mb-2">IDENTITY STABILITY</div>
-            <div class="text-lg font-bold tracking-widest text-green-400">99.98%</div>
-            <div class="text-xs text-gray-600 tracking-widest mt-1">REGISTRY INTEGRITY</div>
-          </div>
-          <div class="bg-black px-6 py-5">
-            <div class="text-xs text-gray-500 tracking-widest mb-2">LEDGER HEALTH</div>
-            <div class="text-lg font-bold tracking-widest text-green-400">OPTIMAL</div>
-            <div class="text-xs text-gray-600 tracking-widest mt-1">ZERO DRIFT DETECTED</div>
-          </div>
-          <div class="bg-black px-6 py-5">
-            <div class="text-xs text-gray-500 tracking-widest mb-2">COMPLIANCE</div>
-            <div class="text-sm font-bold tracking-widest leading-snug">SigmaShift<br/>Sovereign v1.0</div>
-            <div class="text-xs text-gray-600 tracking-widest mt-1">STANDARD ACTIVE</div>
-          </div>
-        </div>
-        <!-- Purge control -->
-        <div class="mt-6 flex items-center gap-6">
-          <button
-            id="purge-btn"
-            onclick="initiatePurge()"
-            class="text-xs tracking-widest border border-red-500 text-red-500 px-4 py-2 hover:bg-red-500 hover:text-black transition-colors font-bold"
-          >[ INITIALIZE PURGE ]</button>
-          <span id="purge-status" class="text-xs text-gray-600 tracking-widest"></span>
-        </div>
-      </div>
-
     </div>
   </section>
 
   <!-- MANIFESTO -->
-  <section class="py-16 px-6 border-b border-white">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
-      <div class="md:col-span-1">
-        <div class="text-xs tracking-widest text-gray-500 mb-4">// PUBLIC MANIFESTO</div>
-        <h2 class="text-2xl font-bold tracking-widest leading-tight">THE<br/>1.87<br/>PROTOCOL</h2>
-        <div class="mt-6 text-xs text-gray-600 tracking-widest leading-relaxed">
-          <div>IDENTITY.</div>
-          <div>INTEGRITY.</div>
-          <div>SOVEREIGNTY.</div>
-        </div>
+  <section id="manifesto" class="py-24 px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div class="lg:col-span-5 flex justify-center order-last lg:order-first reveal">
+        <img src="SigmaShift%20Assests/Logos/The%20Elevate%20to%20Deviate%20Crest.png" alt="Elevate to Deviate crest" class="w-64 md:w-80" />
       </div>
-      <div class="md:col-span-2 flex flex-col justify-between gap-8">
-        <p class="text-xs text-gray-300 tracking-wide leading-loose">
+      <div class="lg:col-span-7 reveal">
+        <div class="mono text-xs tracking-[0.25em] text-neutral-500 mb-4">// PUBLIC MANIFESTO</div>
+        <h2 class="text-4xl md:text-5xl font-bold tracking-tight leading-tight mb-8">Elevate to Deviate.</h2>
+        <p class="text-neutral-600 leading-loose max-w-2xl">
           In an era of signal drift and unmanaged generation, SigmaShift stands as a fortress for
-          deterministic creation. We don't just render; we govern. Every pixel, every particle, and
-          every identity is audited against the Laplacian Standard to ensure a minimum density
-          of&nbsp;<span class="text-white font-bold">1.87</span>.
+          deterministic creation. We don't just render; we govern. Every pixel, every particle,
+          and every identity is audited against the Laplacian Standard to ensure a minimum
+          density of <span class="mono font-medium text-black">1.87</span>.
         </p>
-        <p class="text-xs text-gray-300 tracking-wide leading-loose">
-          Our mission is the transition from &ldquo;Creative Output&rdquo; to &ldquo;Sovereign
-          Assets.&rdquo; Through The Bank and the Signal Router, we ensure that digital life remains
-          consistent, secure, and immutable.
-        </p>
-        <div class="border-t border-zinc-800 pt-6 flex items-center gap-4">
-          <span class="text-xs text-gray-500 tracking-widest">STATUS</span>
-          <span class="text-xs text-green-400 tracking-widest border border-green-400 px-3 py-1">BROADCASTING_FROM_THE_NEXUS</span>
+        <div class="mt-10 flex items-center gap-4 mono text-xs tracking-[0.18em]">
+          <span class="text-neutral-500">STATUS</span>
+          <span class="px-3 py-1 bg-[#2E5BFF]/10 text-[#2E5BFF]">BROADCASTING_FROM_THE_NEXUS</span>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TERMINAL -->
-  <section class="py-16 px-6 border-b border-white">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-xs tracking-widest text-gray-500 mb-4">// LIVE AUDIT TERMINAL</div>
-      <div
-        id="terminal-output"
-        class="border border-white bg-black p-4 h-72 overflow-y-auto text-xs leading-relaxed"
-      ></div>
-    </div>
-  </section>
-
-  <!-- ACCESS GATEWAY MODAL -->
-  <div id="gateway-modal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-95 flex items-center justify-center">
-    <div class="border border-white w-full max-w-md mx-6 p-8 flex flex-col gap-6">
-      <div class="flex justify-between items-start">
-        <div>
-          <div class="text-xs text-gray-500 tracking-widest mb-2">// AUTH_GATEWAY — CHALLENGE ISSUED</div>
-          <h2 class="text-base font-bold tracking-widest">OPERATOR ACCESS</h2>
-        </div>
-        <button onclick="closeGateway()" class="text-gray-500 hover:text-white text-xs tracking-widest transition-colors">[ CLOSE ]</button>
-      </div>
-      <div class="border-t border-zinc-800 pt-6">
-        <label class="text-xs text-gray-400 tracking-widest block mb-3">ENTER OPERATOR HASH</label>
-        <input
-          id="gateway-input"
-          type="password"
-          autocomplete="off"
-          placeholder="_ _ _ _ _ _ _ _ _ _ _ _"
-          class="w-full bg-transparent border border-white text-white text-xs tracking-widest px-4 py-3 outline-none placeholder-gray-700 focus:border-green-400 transition-colors"
-          onkeydown="if(event.key==='Enter') submitGateway()"
-        />
-        <div id="gateway-error" class="hidden mt-3 text-xs text-red-400 tracking-widest">HASH MISMATCH — ACCESS DENIED</div>
-      </div>
-      <button
-        onclick="submitGateway()"
-        class="border border-white text-xs tracking-widest py-3 hover:bg-white hover:text-black transition-colors font-bold"
-      >SUBMIT HASH</button>
-    </div>
-  </div>
-
-  <!-- NODE MAP -->
-  <section class="py-16 px-6 border-b border-white">
-    <div class="max-w-7xl mx-auto">
-      <div class="text-xs tracking-widest text-gray-500 mb-8">// GLOBAL NODE LATTICE — DISTRIBUTED ROUTING NETWORK</div>
-
-      <!-- SVG Map -->
-      <div class="border border-white p-6 mb-6 relative overflow-hidden">
-        <svg viewBox="0 0 800 300" class="w-full" style="max-height:260px" xmlns="http://www.w3.org/2000/svg">
-          <!-- Grid lines -->
-          <defs>
-            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a1a1a" stroke-width="0.5"/>
-            </pattern>
-          </defs>
-          <rect width="800" height="300" fill="url(#grid)"/>
-
-          <!-- Connection lines -->
-          <line x1="140" y1="80" x2="400" y2="150" stroke="#333" stroke-width="1" stroke-dasharray="4 3"/>
-          <line x1="400" y1="150" x2="580" y2="90" stroke="#333" stroke-width="1" stroke-dasharray="4 3"/>
-          <line x1="140" y1="80" x2="580" y2="90" stroke="#222" stroke-width="1" stroke-dasharray="2 5"/>
-          <line x1="400" y1="150" x2="260" y2="220" stroke="#333" stroke-width="1" stroke-dasharray="4 3"/>
-
-          <!-- Active traffic pulse line (US-WEST > EU-CENTRAL) -->
-          <line x1="140" y1="80" x2="580" y2="90" stroke="#4ade80" stroke-width="1" opacity="0.4">
-            <animate attributeName="opacity" values="0.1;0.6;0.1" dur="2.4s" repeatCount="indefinite"/>
-          </line>
-
-          <!-- Node: US-WEST-01 -->
-          <circle cx="140" cy="80" r="6" fill="#000" stroke="#fff" stroke-width="1.5"/>
-          <circle cx="140" cy="80" r="12" fill="none" stroke="#4ade80" stroke-width="1" opacity="0">
-            <animate attributeName="r" values="8;18;8" dur="2s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="0.7;0;0.7" dur="2s" repeatCount="indefinite"/>
-          </circle>
-          <text x="150" y="72" fill="#9ca3af" font-size="9" font-family="IBM Plex Mono, monospace" letter-spacing="1">US-WEST-01</text>
-          <text x="150" y="84" fill="#4ade80" font-size="7" font-family="IBM Plex Mono, monospace" letter-spacing="1">ACTIVE</text>
-
-          <!-- Node: EU-CENTRAL-01 -->
-          <circle cx="580" cy="90" r="6" fill="#000" stroke="#fff" stroke-width="1.5"/>
-          <circle cx="580" cy="90" r="12" fill="none" stroke="#4ade80" stroke-width="1" opacity="0">
-            <animate attributeName="r" values="8;18;8" dur="2.6s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="0.7;0;0.7" dur="2.6s" repeatCount="indefinite"/>
-          </circle>
-          <text x="590" y="82" fill="#9ca3af" font-size="9" font-family="IBM Plex Mono, monospace" letter-spacing="1">EU-CENTRAL-01</text>
-          <text x="590" y="94" fill="#4ade80" font-size="7" font-family="IBM Plex Mono, monospace" letter-spacing="1">ACTIVE</text>
-
-          <!-- Node: JP-TOKYO-01 -->
-          <circle cx="400" cy="150" r="6" fill="#000" stroke="#fff" stroke-width="1.5"/>
-          <circle cx="400" cy="150" r="12" fill="none" stroke="#4ade80" stroke-width="1" opacity="0">
-            <animate attributeName="r" values="8;18;8" dur="3s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="0.7;0;0.7" dur="3s" repeatCount="indefinite"/>
-          </circle>
-          <text x="412" y="143" fill="#9ca3af" font-size="9" font-family="IBM Plex Mono, monospace" letter-spacing="1">JP-TOKYO-01</text>
-          <text x="412" y="155" fill="#4ade80" font-size="7" font-family="IBM Plex Mono, monospace" letter-spacing="1">ACTIVE</text>
-
-          <!-- Node: SA-SHADOW-01 (dim / failover) -->
-          <circle cx="260" cy="220" r="6" fill="#000" stroke="#555" stroke-width="1.5"/>
-          <circle cx="260" cy="220" r="12" fill="none" stroke="#facc15" stroke-width="1" opacity="0">
-            <animate attributeName="r" values="8;16;8" dur="4s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="0.5;0;0.5" dur="4s" repeatCount="indefinite"/>
-          </circle>
-          <text x="272" y="213" fill="#6b7280" font-size="9" font-family="IBM Plex Mono, monospace" letter-spacing="1">SA-SHADOW-01</text>
-          <text x="272" y="225" fill="#facc15" font-size="7" font-family="IBM Plex Mono, monospace" letter-spacing="1">STANDBY</text>
-        </svg>
-      </div>
-
-      <!-- Traffic Ticker -->
-      <div class="border border-zinc-800 bg-zinc-950 px-4 py-3 flex items-center gap-4">
-        <span class="text-xs text-gray-500 tracking-widest shrink-0">ROUTING TRAFFIC:</span>
-        <span id="node-ticker" class="text-xs text-green-400 tracking-widest">NODE_01 &gt; [ENCRYPTED] &gt; NODE_03</span>
-        <span class="ml-auto text-xs text-gray-600 tracking-widest" id="lattice-status">LATTICE: NOMINAL</span>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="py-6 px-6 border-t border-white">
-    <div class="max-w-7xl mx-auto">
-      <div class="flex justify-between items-center mb-4">
-        <span class="text-xs text-gray-500 tracking-widest">SIGMASHIFT.NET // v1.87 FINAL</span>
-        <span class="text-xs text-gray-600 tracking-widest">ALL SYSTEMS NOMINAL</span>
+  <footer class="border-t border-black/10 py-12 px-6">
+    <div class="max-w-7xl mx-auto flex flex-col items-center gap-8">
+      <img src="SigmaShift%20Assests/Logos/The%20S%E2%82%897%20Percentile%20Glyph.png" alt="S97 minimal mark" class="h-14 w-auto opacity-80" />
+      <div class="mono text-xs tracking-[0.25em] text-neutral-500 text-center">ELEVATE TO DEVIATE</div>
+      <div class="flex flex-wrap justify-center gap-x-8 gap-y-2 mono text-xs tracking-[0.15em] text-neutral-500">
+        <a href="terms.html" class="hover:text-black transition-colors">TERMS</a>
+        <a href="privacy.html" class="hover:text-black transition-colors">PRIVACY</a>
+        <a href="refunds.html" class="hover:text-black transition-colors">REFUNDS</a>
+        <a href="mailto:support@sigmashift.net" class="hover:text-black transition-colors">SUPPORT@SIGMASHIFT.NET</a>
       </div>
-      <div class="text-xs text-gray-600 tracking-widest text-center border-t border-zinc-800 pt-4">
-        © 2026 SIGMASHIFT.NET | <a href="mailto:support@sigmashift.net" class="hover:text-white transition-colors">Contact: support@sigmashift.net</a> | <a href="#" class="hover:text-white transition-colors">Terms of Service</a> | <a href="#" class="hover:text-white transition-colors">Privacy Policy</a> | <a href="#" class="hover:text-white transition-colors">Refund Policy</a>
-      </div>
+      <div class="mono text-xs text-neutral-400">© 2026 SIGMASHIFT.NET // v1.87 FINAL</div>
     </div>
   </footer>
 
   <script>
-    let isAuthenticated = false;
-
-    function openGateway() {
-      if (isAuthenticated) {
-        scrollToVault();
-        return;
-      }
-      document.getElementById('gateway-modal').classList.remove('hidden');
-      document.getElementById('gateway-input').value = '';
-      document.getElementById('gateway-error').classList.add('hidden');
-      setTimeout(() => document.getElementById('gateway-input').focus(), 50);
-      prependAuthLine('COMPONENT:AUTH_GATEWAY', 'CHALLENGE_ISSUED', 'text-white');
-    }
-
-    function closeGateway() {
-      document.getElementById('gateway-modal').classList.add('hidden');
-    }
-
-    function operatorClick() {
-      if (isAuthenticated) {
-        scrollToVault();
-      } else {
-        openGateway();
-      }
-    }
-
-    function scrollToVault() {
-      document.getElementById('sovereign-vault').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function submitGateway() {
-      const input = document.getElementById('gateway-input').value.trim();
-      if (input === '1.87-SIGMA-2026') {
-        isAuthenticated = true;
-        closeGateway();
-        document.getElementById('sovereign-vault').classList.remove('hidden');
-        prependAuthLine('COMPONENT:AUTH_GATEWAY', 'ACCESS_GRANTED (OP_LEVEL:1.87)', 'text-green-400');
-        prependManifestLog();
-        setTimeout(scrollToVault, 150);
-      } else {
-        document.getElementById('gateway-error').classList.remove('hidden');
-        prependAuthLine('COMPONENT:AUTH_GATEWAY', 'ACCESS_DENIED', 'text-red-400');
-      }
-    }
-
-    function launchMediator() {
-      prependAuthLine('COMPONENT:OBJECTIVE_MEDIATOR', 'SESSION_LAUNCH_INITIATED', 'text-green-400');
-      // Stripe checkout link placeholder
-      console.log('Launching OBJECTIVE_MEDIATOR session...');
-    }
-
-    function initiatePurge() {
-      const btn = document.getElementById('purge-btn');
-      const purgeStatus = document.getElementById('purge-status');
-      if (btn.disabled) return;
-      btn.disabled = true;
-      btn.textContent = '[ PURGING... ]';
-
-      const terminal = document.getElementById('terminal-output');
-
-      function termLine(text, cls) {
-        const line = document.createElement('div');
-        line.className = cls;
-        line.textContent = `[${getTimestamp()}] ${text}`;
-        terminal.insertBefore(line, terminal.firstChild);
-        while (terminal.children.length > 40) terminal.removeChild(terminal.lastChild);
-      }
-
-      termLine('COMPONENT:SECURITY_DAEMON STATUS:CRITICAL_THREAT_DETECTED', 'text-red-400');
-
-      let count = 3;
-      purgeStatus.textContent = `PURGING VAULT IN ${count}...`;
-      purgeStatus.className = 'text-xs text-red-400 tracking-widest';
-
-      const tick = setInterval(() => {
-        count--;
-        if (count > 0) {
-          purgeStatus.textContent = `PURGING VAULT IN ${count}...`;
-        } else {
-          clearInterval(tick);
-          termLine('COMPONENT:SECURITY_DAEMON STATUS:PURGING VAULT IN 3... 2... 1... EXECUTING', 'text-red-400');
-
-          // Glitch effect
-          const vault = document.getElementById('sovereign-vault');
-          vault.style.transition = 'none';
-          let glitchCount = 0;
-          const glitch = setInterval(() => {
-            vault.style.opacity = glitchCount % 2 === 0 ? '0.1' : '0.8';
-            vault.style.transform = glitchCount % 2 === 0 ? 'translateX(4px)' : 'translateX(-4px)';
-            glitchCount++;
-            if (glitchCount >= 8) {
-              clearInterval(glitch);
-              vault.style.opacity = '';
-              vault.style.transform = '';
-              vault.classList.add('hidden');
-              isAuthenticated = false;
-              termLine('COMPONENT:PURGE_DAEMON STATUS:VAULT_PURGED // ACCESS_REVOKED', 'text-red-400');
-              purgeStatus.textContent = 'VAULT PURGED — ACCESS REVOKED';
-              btn.textContent = '[ INITIALIZE PURGE ]';
-              btn.disabled = false;
-            }
-          }, 80);
-        }
-      }, 1000);
-    }
-
-    function scanIdentityDNA() {
-      const btn = document.querySelector('button[onclick="scanIdentityDNA()"]');
-      const status = document.getElementById('scan-status');
-      if (btn.disabled) return;
-      btn.disabled = true;
-      btn.textContent = '[ SCANNING... ]';
-      status.textContent = '';
-
-      // Pulse a scanning line immediately
-      const terminal = document.getElementById('terminal-output');
-      const scanLine = document.createElement('div');
-      scanLine.className = 'text-yellow-400';
-      scanLine.textContent = `[${getTimestamp()}] COMPONENT:IDENTITY_REGISTRY HASH:${randomHex(8)} STATUS:DNA_SCAN_INITIATED`;
-      terminal.insertBefore(scanLine, terminal.firstChild);
-      while (terminal.children.length > 40) terminal.removeChild(terminal.lastChild);
-
-      setTimeout(() => {
-        const identities = [
-          { id: 'ELDER_V2',   label: 'ELDER_V2' },
-          { id: 'SENTINEL',   label: 'THE_SENTINEL' }
-        ];
-        const picked = identities[Math.floor(Math.random() * identities.length)];
-        const logs = [
-          { text: `COMPONENT:IDENTITY_REGISTRY HASH:${randomHex(8)} STATUS:DNA_MATCH_CONFIRMED (${picked.id})`, color: 'text-green-400' },
-          { text: `COMPONENT:IDENTITY_REGISTRY HASH:${randomHex(8)} STATUS:MORPH_VECTORS_CALIBRATED`, color: 'text-green-400' }
-        ];
-        for (let i = logs.length - 1; i >= 0; i--) {
-          const line = document.createElement('div');
-          line.className = logs[i].color;
-          line.textContent = `[${getTimestamp()}] ${logs[i].text}`;
-          terminal.insertBefore(line, terminal.firstChild);
-        }
-        while (terminal.children.length > 40) terminal.removeChild(terminal.lastChild);
-
-        btn.textContent = '[ SCAN IDENTITY DNA ]';
-        btn.disabled = false;
-        status.textContent = `DNA_MATCH_CONFIRMED — ${picked.label} ✔`;
-        status.className = 'text-xs text-green-400 tracking-widest';
-      }, 2000);
-    }
-
-    function prependManifestLog() {
-      const terminal = document.getElementById('terminal-output');
-      const logs = [
-        { text: `COMPONENT:VAULT_DECRYPTION HASH:7E22A1BC STATUS:NEBULA_MANIFEST_LOADED` },
-        { text: `COMPONENT:SIGMA_ENGINE HASH:B44A92F1 STATUS:CORE_NUCLEUS_ONLINE` },
-        { text: `COMPONENT:SIGNAL_ROUTER HASH:F23E11D9 STATUS:FAILOVER_PROTOCOL_ENGAGED` },
-        { text: `COMPONENT:SUPERNOVA_SIM HASH:9D11B5A2 STATUS:PARTICLE_SOLVER_ACTIVE` },
-        { text: `COMPONENT:IDENTITY_REGISTRY HASH:C7F033E6 STATUS:REGISTRY_ONLINE (THE_BANK)` },
-        { text: `COMPONENT:REPORT_GEN HASH:A19C4D77 STATUS:SOVEREIGN_EMISSION_COMPLETE` },
-        { text: `COMPONENT:PURGE_DAEMON HASH:E80F2C44 STATUS:FAILSAFE_ENGAGED` }
-      ];
-      // Prepend in reverse so they appear in order (first log on top)
-      for (let i = logs.length - 1; i >= 0; i--) {
-        const line = document.createElement('div');
-        line.className = 'text-green-400';
-        line.textContent = `[${getTimestamp()}] ${logs[i].text}`;
-        terminal.insertBefore(line, terminal.firstChild);
-      }
-      while (terminal.children.length > 40) terminal.removeChild(terminal.lastChild);
-    }
-
-    function prependAuthLine(component, status, colorClass) {
-      const terminal = document.getElementById('terminal-output');
-      const timestamp = getTimestamp();
-      const hash = randomHex(8);
-      const line = document.createElement('div');
-      line.className = colorClass;
-      line.textContent = `[${timestamp}] ${component} HASH:${hash} STATUS:${status}`;
-      terminal.insertBefore(line, terminal.firstChild);
-      while (terminal.children.length > 40) terminal.removeChild(terminal.lastChild);
-    }
-
-    const components = [
-      'NAV_BAR',
-      'HERO_ENGINE',
-      'VAULT_ENCRYPTION',
-      'TICKER_STREAM',
-      'AUTH_GATEWAY',
-      'METRICS_CORE',
-      'CACHE_LAYER',
-      'SIGNAL_ROUTER',
-      'ASSET_PIPELINE',
-      'SESSION_MANAGER'
-    ];
-
-    function getTimestamp() {
-      return new Date().toISOString().replace('T', ' ').substring(0, 19);
-    }
-
-    function randomHex(len) {
-      return Array.from({ length: len }, () =>
-        Math.floor(Math.random() * 16).toString(16).toUpperCase()
-      ).join('');
-    }
-
-    function randomScore() {
-      // ~20% chance of dropping into warn territory (1.80–1.83)
-      if (Math.random() < 0.2) {
-        return (1.80 + Math.random() * 0.03).toFixed(2);
-      }
-      return (1.87 + Math.random() * 0.23).toFixed(2);
-    }
-
-    function addLine() {
-      const terminal = document.getElementById('terminal-output');
-      const component = components[Math.floor(Math.random() * components.length)];
-      const timestamp = getTimestamp();
-      const hash = randomHex(8);
-      const score = parseFloat(randomScore());
-      const status = score < 1.84 ? 'WARN' : 'PASS';
-      const colorClass = score < 1.84 ? 'text-yellow-400' : 'text-green-400';
-
-      const line = document.createElement('div');
-      line.className = colorClass;
-      line.textContent = `[${timestamp}] COMPONENT:${component} HASH:${hash} SCORE:${score.toFixed(2)} STATUS:${status}`;
-
-      // Prepend to top
-      terminal.insertBefore(line, terminal.firstChild);
-
-      // Cap at 40 lines
-      while (terminal.children.length > 40) {
-        terminal.removeChild(terminal.lastChild);
-      }
-    }
-
-    // Seed with initial lines
-    for (let i = 0; i < 12; i++) addLine();
-
-    // Main audit loop — occasionally pulses NODE_MAP
-    let auditTick = 0;
-    setInterval(() => {
-      auditTick++;
-      // Every ~8 ticks (~9.6s) fire a NODE_MAP sync line instead of a normal line
-      if (auditTick % 8 === 0) {
-        const terminal = document.getElementById('terminal-output');
-        const line = document.createElement('div');
-        line.className = 'text-white';
-        line.textContent = `[${getTimestamp()}] COMPONENT:NODE_MAP HASH:${randomHex(8)} STATUS:SYNCING_GLOBAL_LATTICE`;
-        terminal.insertBefore(line, terminal.firstChild);
-        while (terminal.children.length > 40) terminal.removeChild(terminal.lastChild);
-      } else {
-        addLine();
-      }
-    }, 1200);
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   </script>
 
 </body>
